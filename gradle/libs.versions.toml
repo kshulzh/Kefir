@@ -1,0 +1,13 @@
+[versions]
+kotlin = "2.3.10"
+agp = "8.13.0-rc01"
+vanniktech = "0.36.0"
+kshku = "0.0.1.1"
+[libraries]
+kshku-problemgraph = { module = "io.github.kshulzh.kshku:problem-graph", version.ref = "kshku" }
+[bundles]
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech" }
