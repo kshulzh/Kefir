@@ -19,6 +19,7 @@ dependencies {
     implementation(project(":compiler-plugin"))
 
     implementation("dev.zacsweers.kctfork:core:0.12.1")
+    testImplementation(project(":model-utils"))
     implementation(kotlin("test"))
 }
 

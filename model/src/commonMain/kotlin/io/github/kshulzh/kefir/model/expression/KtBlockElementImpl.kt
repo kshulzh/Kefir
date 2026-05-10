@@ -18,6 +18,7 @@ package io.github.kshulzh.kefir.model.expression
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
@@ -46,6 +47,7 @@ import io.github.kshulzh.kefir.model.utils.createListDelegate
 class KtBlockElementImpl(
     statements: MutableList<KtStatementElement> = mutableListOf(),
     override var type: KtTypeElement? = null,
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var parent: KtElement? = null,
     override var attributes: MutableMap<String, Any> = mutableMapOf()
 ) : KtBlockElement, KtAttributes {
@@ -62,6 +64,6 @@ class KtBlockElementImpl(
      */
     override var statements: MutableList<KtStatementElement> by createListDelegate(
         statements,
-        KtStatementElement::statementsScope
+        KtStatementElement::parent
     )
 }

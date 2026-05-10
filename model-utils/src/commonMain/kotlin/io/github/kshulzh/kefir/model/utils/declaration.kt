@@ -16,8 +16,11 @@
 
 package io.github.kshulzh.kefir.model.utils
 
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 
 /**
  * Retrieves all declarations within the current class element, including those
@@ -39,3 +42,9 @@ fun KtClassElement.getDeclarations(): List<KtDeclarationElement> {
         }
     }
 }
+
+val KtClassElement.functions: List<KtFunctionElement> inline get() = declarations.filterIsInstance<KtFunctionElement>()
+
+val KtClassElement.properties: List<KtPropertyElement> inline get() = declarations.filterIsInstance<KtPropertyElement>()
+
+val KtClassElement.constructors: List<KtConstructorElement> inline get() = declarations.filterIsInstance<KtConstructorElement>()

@@ -25,10 +25,10 @@ import io.github.kshulzh.kefir.builder.expression.Field
 import io.github.kshulzh.kefir.builder.expression.Set
 import io.github.kshulzh.kefir.builder.expression.Variable
 import io.github.kshulzh.kefir.builder.statement.Return
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
-import io.github.kshulzh.kefir.model.api.declatation.KtPropertyElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.type.KtBaseTypes
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement

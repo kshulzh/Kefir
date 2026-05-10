@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package io.github.kshulzh.kefir.model.api.declatation
+package io.github.kshulzh.kefir.model.api.declaration
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 import kotlin.reflect.KClass
 
 /**
@@ -50,6 +51,8 @@ interface KtDeclarationsScope : KtElement {
     fun <T : KtDeclarationElement> findDeclarations(name: String, klass: KClass<T>): List<T> {
         return declarations.filter { it.name == name }.filterIsInstance(klass.java)
     }
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitDeclarationsScope(this, data)
 }
 
 /**

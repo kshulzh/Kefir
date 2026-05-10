@@ -18,7 +18,7 @@ package io.github.kshulzh.kefir.model.annotation
 
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
-import io.github.kshulzh.kefir.model.api.arg.KtArgumentElement
+import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 
 /**
@@ -41,5 +41,6 @@ import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 class KtAnnotationElementImpl(
     override var type: KtTypeElement,
     override var annotationScope: KtAnnotationsScope?,
-    override var arguments: MutableList<KtArgumentElement>
+    override var arguments: MutableList<KtExpressionElement?>,
+    override var argumentMap: MutableMap<String, KtExpressionElement?>
 ) : KtAnnotationElement

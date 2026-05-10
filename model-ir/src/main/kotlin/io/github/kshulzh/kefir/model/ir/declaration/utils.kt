@@ -17,11 +17,11 @@
 package io.github.kshulzh.kefir.model.ir.declaration
 
 import io.github.kshulzh.kefir.model.api.KtElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.ir.expression.KtIrBodyBlockElement
-import io.github.kshulzh.kefir.model.ir.expression.wrapExpression
+import io.github.kshulzh.kefir.model.ir.expression.wrapIrExpression
 import io.github.kshulzh.kefir.transform.context.KtTransformContext
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrBlockBody
@@ -51,7 +51,7 @@ fun wrapIrDeclarations(
 
 fun wrapIrBody(irBody: IrBody, transformContext: KtTransformContext, parent: KtElement): KtExpressionElement {
     if (irBody is IrExpressionBody) {
-        return wrapExpression(irBody.expression, transformContext)!!
+        return wrapIrExpression(irBody.expression, transformContext)!!
     } else if (irBody is IrBlockBody) {
         return KtIrBodyBlockElement(irBody, transformContext, parent)
     }

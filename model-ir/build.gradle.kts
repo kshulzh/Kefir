@@ -10,6 +10,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(project(":model-api"))
     implementation(project(":model"))
+    implementation(project(":builder"))
     implementation(project(":transform-ir"))
     implementation(libs.kshku.problemgraph)
 

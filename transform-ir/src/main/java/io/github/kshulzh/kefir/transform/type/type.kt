@@ -100,7 +100,7 @@ fun KtFirLocalTransformContext.transformClassFirType(input: KtClassTypeElement):
 
     return ConeClassLikeTypeImpl(
         ClassId(
-            input.ktPackage.transform()!!,
+            input.ktPackage.transform() ?: FqName.ROOT,
             input.ktClass.transform()!!, false
         ).toLookupTag(),
         typeArguments,

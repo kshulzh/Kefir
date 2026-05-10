@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package io.github.kshulzh.kefir.model.api.declatation
+package io.github.kshulzh.kefir.model.api.declaration
 
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifierScope
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a property element in the Kotlin model structure.
@@ -76,4 +77,6 @@ interface KtPropertyElement : KtDeclarationElement,
      * defined. In such cases, the default setter logic is assumed.
      */
     var setter: KtFunctionElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitProperty(this, data)
 }

@@ -17,7 +17,8 @@
 package io.github.kshulzh.kefir.model.fir.declaration
 
 import io.github.kshulzh.kefir.model.api.KtName
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageScope
 import io.github.kshulzh.kefir.transform.FirWrapper
@@ -40,5 +41,7 @@ class KtFirFileElement(
         set(value) {}
 
     override fun toString() = name
+    override val annotations: MutableList<KtAnnotationElement>
+        get() = TODO("Not yet implemented")
 
 }

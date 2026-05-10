@@ -17,7 +17,10 @@
 package io.github.kshulzh.kefir.model.api.expression
 
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 interface KtGetValueElement : KtExpressionElement {
     var parameter: KtParameterElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitGetValue(this, data)
 }

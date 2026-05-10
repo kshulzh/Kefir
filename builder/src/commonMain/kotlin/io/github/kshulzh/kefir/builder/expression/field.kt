@@ -17,7 +17,7 @@
 package io.github.kshulzh.kefir.builder.expression
 
 import io.github.kshulzh.kefir.builder.declaration.getField
-import io.github.kshulzh.kefir.model.api.declatation.KtPropertyElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetFieldElement

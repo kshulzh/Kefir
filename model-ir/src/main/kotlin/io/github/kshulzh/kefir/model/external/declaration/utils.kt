@@ -16,8 +16,8 @@
 
 package io.github.kshulzh.kefir.model.external.declaration
 
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.model.external.KtExternalRootPackageElement
 import org.jetbrains.kotlin.fir.declarations.*
 

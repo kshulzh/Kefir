@@ -16,6 +16,8 @@
 
 package io.github.kshulzh.kefir.model.api.io
 
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
+
 /**
  * Represents a specific Kotlin package element within the package hierarchy.
  *
@@ -32,4 +34,6 @@ package io.github.kshulzh.kefir.model.api.io
  * - Creation, retrieval, and management of subpackage and file elements.
  * - Hierarchical navigation through package paths.
  */
-interface KtPackageElement : KtPackageScopeElement, KtPackageScope
+interface KtPackageElement : KtPackageScopeElement, KtPackageScope {
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitPackage(this, data)
+}

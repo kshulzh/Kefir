@@ -17,6 +17,7 @@
 package io.github.kshulzh.kefir.transform.context
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
+import io.github.kshulzh.kefir.model.api.io.KtPackageScope
 import io.github.kshulzh.kefir.transform.transformer.FirTransformer
 import io.github.kshulzh.kefir.transform.utils.KtFirStructure
 import io.github.kshulzh.problemgraph.context.ProblemContext
@@ -66,4 +67,8 @@ interface KtFirTransformContext : KtAttributes {
      * transformation context, and it may be null if not explicitly set.
      */
     val problemContext: ProblemContext?
+
+    val root: KtPackageScope
+
+    val externalRoot: KtPackageScope
 }

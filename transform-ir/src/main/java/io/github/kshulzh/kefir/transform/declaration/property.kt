@@ -17,8 +17,8 @@
 package io.github.kshulzh.kefir.transform.declaration
 
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
-import io.github.kshulzh.kefir.model.api.declatation.KtPropertyElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.transform.context.KtFirLocalTransformContext
 import io.github.kshulzh.kefir.transform.context.KtIrLocalTransformContext
 import io.github.kshulzh.kefir.transform.utils.*
@@ -54,7 +54,7 @@ import org.jetbrains.kotlin.ir.util.patchDeclarationParents
  * @param input The [KtPropertyElement] representing the property in the Kotlin model structure to be transformed.
  * @return A transformed [IrProperty] corresponding to the input element, or null if the transformation cannot be completed.
  */
-fun KtIrLocalTransformContext.transformIrProperty(input: KtPropertyElement): IrProperty? {
+fun KtIrLocalTransformContext.transformIrProperty(input: KtPropertyElement): IrProperty {
     return transformContext.pluginContext.irFactory.createProperty(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
@@ -111,9 +111,9 @@ fun KtIrLocalTransformContext.transformIrProperty(input: KtPropertyElement): IrP
  * @param input The [KtPropertyElement] representing the Kotlin property to be transformed into FIR.
  * @return A [FirProperty] representation of the provided input or null if the transformation fails.
  */
-fun KtFirLocalTransformContext.transformFirProperty(input: KtPropertyElement): FirProperty? {
+fun KtFirLocalTransformContext.transformFirProperty(input: KtPropertyElement): FirProperty {
     val symbol = FirRegularPropertySymbol(input.callableId())
-    val returnType = firTransform(input.resolveType()!!)?.toFirResolvedTypeRef()
+    val returnType = firTransform(input.resolveType())?.toFirResolvedTypeRef()
     val parent = input.declarationsScope.getFirOrExternal<FirDeclaration>()!!
     val field1 = input.field?.let { transformFirBackingField(symbol, it) }
 
@@ -184,8 +184,8 @@ fun KtFirLocalTransformContext.transformFirProperty(input: KtPropertyElement): F
 private fun KtFirLocalTransformContext.transformFirFieldAccessor(
     input: KtPropertyElement,
     isGetter1: Boolean
-): FirPropertyAccessor? {
-    val returnType = firTransform(input.resolveType()!!)?.toFirResolvedTypeRef()
+): FirPropertyAccessor {
+    val returnType = firTransform(input.resolveType())?.toFirResolvedTypeRef()
     val function = if (isGetter1) input.getter else input.setter
     val parent = input.declarationsScope.getFirOrExternal<FirDeclaration>()!!
     return buildPropertyAccessor {
@@ -217,7 +217,7 @@ private fun KtFirLocalTransformContext.transformFirFieldAccessor(
         isGetter = isGetter1
         fork {
             val params =
-                function!!.parameters.filter { it.name != "<this>" }.map { transformFirValueParameter(symbol, it)!! }
+                function!!.parameters.filter { it.name != "<this>" }.map { transformFirValueParameter(symbol, it) }
             valueParameters.addAll(params)
         }
         //override val annotations: MutableList<FirAnnotation> = mutableListOf()
@@ -235,7 +235,7 @@ private fun KtFirLocalTransformContext.transformFirFieldAccessor(
 private fun KtFirLocalTransformContext.transformFirBackingField(
     firProperty: FirPropertySymbol,
     input: KtFieldElement
-): FirBackingField? {
+): FirBackingField {
     val returnType = firTransform(input.resolveType()!!)?.toFirResolvedTypeRef()
     input.declarationsScope.getFirOrExternal<FirDeclaration>()!!
     return buildBackingField {
@@ -280,7 +280,7 @@ private fun KtFirLocalTransformContext.transformFirBackingField(
 private fun KtFirLocalTransformContext.transformFirValueParameter(
     firProperty: FirPropertyAccessorSymbol,
     input: KtParameterElement
-): FirValueParameter? {
+): FirValueParameter {
     val returnType = firTransform(input.resolveType()!!)?.toFirResolvedTypeRef()
     return buildValueParameter {
         source = createSource()

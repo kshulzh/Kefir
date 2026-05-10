@@ -18,6 +18,7 @@ package io.github.kshulzh.kefir.model.arg
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtName
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
 import io.github.kshulzh.kefir.model.api.arg.KtParametersScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
@@ -45,6 +46,7 @@ class KtParameterElementImpl(
     override var type: KtTypeElement? = null,
     value: KtExpressionElement? = null,
     override var parametersScope: KtParametersScope? = null,
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var kind: KtParameterElement.Kind? = null,
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
 ) : KtParameterElement, KtAttributes {

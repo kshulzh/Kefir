@@ -17,6 +17,8 @@
 package io.github.kshulzh.kefir.model.api.statement
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Defines a base element representing a statement in the Kotlin abstract syntax tree (AST).
@@ -25,17 +27,16 @@ import io.github.kshulzh.kefir.model.api.KtElement
  * in Kotlin. It models the shared structure and behaviors of statements, making it possible to
  * handle diverse statement forms in a uniform manner.
  */
-interface KtStatementElement : KtElement {
+interface KtStatementElement : KtAnnotationsScope, KtElement {
     /**
-     * Defines the scope of statements associated with this element.
+     * Represents the parent element within the abstract syntax tree (AST) hierarchy.
      *
-     * This property refers to an optional [KtStatementsScope], representing a container that
-     * organizes and manages a collection of statements ([KtStatementElement]) in a specific
-     * scope or context. It allows for operations and transformations involving the grouped
-     * statements as a whole, enabling structured handling in both intermediate and final representations.
-     *
-     * The property is nullable, indicating that the statement element may not always have
-     * an associated scope or that the scope may not be initialized.
+     * The `parent` property provides access to the hierarchical context of this element.
+     * It refers to the enclosing [KtElement] that contains this element, enabling navigation
+     * or traversal of the AST structure. This property is nullable, indicating that the
+     * element may not always have a parent in cases such as root nodes or detached elements.
      */
-    var statementsScope: KtStatementsScope?
+    var parent: KtElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitStatement(this, data)
 }

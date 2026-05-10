@@ -19,10 +19,11 @@ package io.github.kshulzh.kefir.model.declatation
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterElement
 import io.github.kshulzh.kefir.model.utils.createSetDelegate
 
 /**
@@ -31,7 +32,7 @@ import io.github.kshulzh.kefir.model.utils.createSetDelegate
  * This class represents a concrete class element in the Kotlin model structure,
  * providing a container for declarations, annotations, supertypes, and attributes
  * associated with a Kotlin class or interface. It extends the functionality of
- * [KtDeclarationElement], [KtDeclarationsScope], [KtAnnotationsScope], and [KtAttributes].
+ * [KtDeclarationElement], [KtDeclarationsScope], and [KtAttributes].
  *
  * @property name The name of the class element.
  * @property declarationsScope The scope of declarations associated with the class.
@@ -46,6 +47,7 @@ class KtClassElementImpl(
     override var annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
     override val supertypes: MutableList<KtTypeElement> = mutableListOf(),
+    override var typeParameters: MutableList<KtTypeParameterElement> = mutableListOf(),
 ) : KtClassElement, KtAttributes {
     /**
      * A mutable set of `KtDeclarationElement` objects representing the declarations within the class element.

@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package io.github.kshulzh.kefir.model.api.declatation
+package io.github.kshulzh.kefir.model.api.declaration
 
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.KtPath
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a declaration element in the Kotlin model structure.
@@ -74,4 +75,6 @@ interface KtDeclarationElement : KtElement {
 
         return current to KtPath(path.reversed().toMutableList())
     }
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitDeclaration(this, data)
 }
