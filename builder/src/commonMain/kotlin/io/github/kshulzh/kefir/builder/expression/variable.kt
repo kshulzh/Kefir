@@ -20,7 +20,6 @@ package io.github.kshulzh.kefir.builder.expression
 
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
-import io.github.kshulzh.kefir.model.api.statement.KtStatementsScope
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 import io.github.kshulzh.kefir.model.expression.KtGetValueElementImpl
 import io.github.kshulzh.kefir.model.utils.resolveParam
@@ -34,14 +33,13 @@ import io.github.kshulzh.kefir.model.utils.resolveParam
  * @return a `KtGetValueElementImpl` instance representing the variable if it is found or declared successfully
  * @throws RuntimeException if the variable cannot be found or declared within the current scope
  */
-fun KtStatementsScope.Variable(
+fun KtBlockElement.Variable(
     name: String,
     type: KtTypeElement? = null,
     value: KtExpressionElement? = null,
 ): KtGetValueElementImpl {
     if (type == null && value == null) {
-        val block = this as? KtBlockElement
-        block?.resolveParam(name)?.let { return KtGetValueElementImpl(it, type, parent = this) }
+        resolveParam(name)?.let { return KtGetValueElementImpl(it, type, parent = this) }
     }
     //todo declare or find variable
     throw RuntimeException("Can't find parameter $name")

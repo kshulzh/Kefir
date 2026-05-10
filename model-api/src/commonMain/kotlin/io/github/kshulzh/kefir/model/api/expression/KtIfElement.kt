@@ -16,6 +16,8 @@
 
 package io.github.kshulzh.kefir.model.api.expression
 
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
+
 /**
  * Represents an `if` expression element within the Kotlin abstract syntax tree (AST).
  *
@@ -64,4 +66,6 @@ interface KtIfElement : KtExpressionElement {
      * of the `if-else` construct. If no else branch is present, this property will be `null`.
      */
     var elseBody: KtExpressionElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitIf(this, data)
 }

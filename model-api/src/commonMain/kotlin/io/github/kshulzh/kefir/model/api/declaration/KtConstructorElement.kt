@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package io.github.kshulzh.kefir.model.api.declatation
+package io.github.kshulzh.kefir.model.api.declaration
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifierScope
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterScope
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a Kotlin constructor element within a Kotlin model structure.
@@ -28,7 +31,7 @@ import io.github.kshulzh.kefir.model.api.modifiers.KtModifierScope
  * It provides a mechanism for defining the body of a constructor, which contains the initialization
  * logic for the class it belongs to.
  */
-interface KtConstructorElement : KtElement, KtModifierScope, KtDeclarationElement {
+interface KtConstructorElement : KtElement, KtModifierScope, KtDeclarationElement, KtTypeParameterScope, KtAnnotationsScope {
     /**
      * Represents the body of a constructor or similar declaration, encapsulating
      * an expression or block of code associated with the element.
@@ -38,4 +41,6 @@ interface KtConstructorElement : KtElement, KtModifierScope, KtDeclarationElemen
      * the primary implementation or functionality of the enclosing element.
      */
     var body: KtExpressionElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitConstructor(this, data)
 }

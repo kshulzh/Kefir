@@ -17,6 +17,7 @@
 package io.github.kshulzh.kefir.model.expression
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.expression.KtConstElement
 import io.github.kshulzh.kefir.model.api.type.KtBaseTypes
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
@@ -35,6 +36,7 @@ import io.github.kshulzh.kefir.model.api.type.KtTypeElement
  */
 class KtConstElementImpl<T>(
     override var value: T?,
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     type: KtTypeElement? = null,
     override var parent: KtElement? = null,
 ) : KtConstElement<T> {

@@ -20,7 +20,7 @@ import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtExternalElement
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
-import io.github.kshulzh.kefir.model.api.arg.KtArgumentElement
+import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 import io.github.kshulzh.kefir.transform.FirWrapper
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
@@ -33,7 +33,8 @@ class KtExternalAnnotationElement(
     override var type: KtTypeElement
         get() = TODO("Not yet implemented")
         set(value) {}
-    override var arguments: MutableList<KtArgumentElement>
-        get() = TODO("Not yet implemented")
-        set(value) {}
+    override var arguments: MutableList<KtExpressionElement?> = mutableListOf()
+    override var argumentMap: MutableMap<String, KtExpressionElement?> = firElement.argumentMapping.mapping.map {
+        it.key.asString() to null
+    }.toMap().toMutableMap()
 }

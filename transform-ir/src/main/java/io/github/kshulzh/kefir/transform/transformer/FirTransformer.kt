@@ -17,7 +17,12 @@
 package io.github.kshulzh.kefir.transform.transformer
 
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.*
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.expression.KtConstElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
@@ -86,12 +91,12 @@ open class FirTransformer {
      * Transforms a Kotlin class element into its corresponding FIR (Frontend Intermediate Representation) class structure
      * by invoking the provided transformation context.
      *
-     * This operator function serves as a direct entry point for transforming a [KtClassElement] into a [FirClass] using
+     * This operator function serves as a direct entry point for transforming a [io.github.kshulzh.kefir.model.api.declaration.KtClassElement] into a [FirClass] using
      * the current [KtFirLocalTransformContext]. It delegates the transformation process to the `transformFirClass` method
      * of the context.
      *
-     * @param element The Kotlin class element ([KtClassElement]) to be transformed.
-     * @return A [FirClass] representing the transformed structure of the given [KtClassElement],
+     * @param element The Kotlin class element ([io.github.kshulzh.kefir.model.api.declaration.KtClassElement]) to be transformed.
+     * @return A [FirClass] representing the transformed structure of the given [io.github.kshulzh.kefir.model.api.declaration.KtClassElement],
      * or `null` if the transformation cannot be completed.
      */
     context(c: KtFirLocalTransformContext)
@@ -110,12 +115,12 @@ open class FirTransformer {
     open operator fun invoke(element: KtFunctionElement): FirFunction? = c.transformFirFunction(element)
 
     /**
-     * Transforms a provided [KtPropertyElement] into its corresponding [FirProperty] representation
+     * Transforms a provided [io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement] into its corresponding [FirProperty] representation
      * using the given transformation context. This operator function enables the transformation of
      * Kotlin property elements as part of the FIR (Frontend Intermediate Representation) pipeline.
      *
-     * @param element The [KtPropertyElement] representing the Kotlin property to be transformed.
-     * @return A [FirProperty] corresponding to the provided [KtPropertyElement], or null if the
+     * @param element The [io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement] representing the Kotlin property to be transformed.
+     * @return A [FirProperty] corresponding to the provided [io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement], or null if the
      * transformation cannot be applied.
      */
     context(c: KtFirLocalTransformContext)

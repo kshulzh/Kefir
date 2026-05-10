@@ -19,7 +19,7 @@
 package io.github.kshulzh.kefir.builder.type
 
 import io.github.kshulzh.kefir.model.api.KtPath
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
 import io.github.kshulzh.kefir.model.api.io.path
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 import io.github.kshulzh.kefir.model.type.KtClassTypeElementImpl
@@ -42,7 +42,8 @@ fun KtClassElement.Type(
         pair.first?.path ?: KtPath(),
         pair.second,
         isNullable,
-        typeArguments
+        typeArguments,
+        this
     )
 }
 
@@ -62,8 +63,8 @@ fun Type(
     typeArguments: MutableList<KtTypeElement> = mutableListOf()
 ): KtTypeElement {
     return KtClassTypeElementImpl(
-        KtPath(package_.split(".").toMutableList()),
-        KtPath(clazz.split(".").toMutableList()),
+        if (package_.isBlank()) KtPath() else KtPath(package_.split(".")),
+        KtPath(clazz.split(".")),
         isNullable,
         typeArguments
     )

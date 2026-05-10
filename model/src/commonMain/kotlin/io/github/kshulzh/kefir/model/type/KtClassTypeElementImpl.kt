@@ -17,6 +17,8 @@
 package io.github.kshulzh.kefir.model.type
 
 import io.github.kshulzh.kefir.model.api.KtPath
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
 import io.github.kshulzh.kefir.model.api.type.KtClassTypeElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 
@@ -34,7 +36,9 @@ class KtClassTypeElementImpl(
     override val ktPackage: KtPath,
     override val ktClass: KtPath,
     override val isNullable: Boolean = false,
-    override val typeArguments: MutableList<KtTypeElement> = mutableListOf()
+    override var typeArguments: MutableList<KtTypeElement> = mutableListOf(),
+    override val klass: KtClassElement? = null,
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
 ) : KtClassTypeElement {
     override fun toString() = buildString {
         append(ktPackage.parts.joinToString(".") { it })

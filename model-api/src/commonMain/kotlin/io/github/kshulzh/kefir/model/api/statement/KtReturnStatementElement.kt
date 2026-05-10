@@ -18,6 +18,7 @@ package io.github.kshulzh.kefir.model.api.statement
 
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a `return` statement element in the Kotlin abstract syntax tree (AST).
@@ -51,4 +52,6 @@ interface KtReturnStatementElement : KtStatementElement {
      * defined or resolved in the context of this statement.
      */
     var target: KtElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitReturnStatement(this, data)
 }

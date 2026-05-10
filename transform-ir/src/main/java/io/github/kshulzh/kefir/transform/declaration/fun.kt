@@ -16,7 +16,7 @@
 
 package io.github.kshulzh.kefir.transform.declaration
 
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifiers
 import io.github.kshulzh.kefir.transform.context.KtFirLocalTransformContext
 import io.github.kshulzh.kefir.transform.context.KtIrLocalTransformContext

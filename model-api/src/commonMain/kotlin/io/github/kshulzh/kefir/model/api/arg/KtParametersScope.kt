@@ -17,6 +17,7 @@
 package io.github.kshulzh.kefir.model.api.arg
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a scope containing parameter elements in the Kotlin model.
@@ -39,6 +40,8 @@ interface KtParametersScope : KtElement {
      * a bidirectional relationship between the parameter and its container.
      */
     var parameters: MutableList<KtParameterElement>
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitParametersScope(this, data )
 
     /**
      * Adds a parameter to the parameters scope and associates it with the current scope.

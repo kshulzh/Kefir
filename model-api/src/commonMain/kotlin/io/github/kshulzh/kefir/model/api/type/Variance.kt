@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025-2026. Kirill Shulzhenko
+ * Copyright (c) 2026. Kirill Shulzhenko
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package io.github.kshulzh.kefir.model.fir.annotation
+package io.github.kshulzh.kefir.model.api.type
 
-import io.github.kshulzh.kefir.model.api.arg.KtArgumentElement
-import org.jetbrains.kotlin.fir.expressions.FirAnnotationArgumentMapping
-
-fun wrapFirAnnotationArguments(argumentMapping: FirAnnotationArgumentMapping): List<KtArgumentElement> {
-    return listOf()
+enum class Variance {
+    INVARIANT,
+    IN,
+    OUT
 }

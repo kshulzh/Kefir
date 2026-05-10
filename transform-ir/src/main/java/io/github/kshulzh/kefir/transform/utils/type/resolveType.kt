@@ -17,9 +17,9 @@
 package io.github.kshulzh.kefir.transform.utils.type
 
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
-import io.github.kshulzh.kefir.model.api.declatation.KtPropertyElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetFieldElement
 import io.github.kshulzh.kefir.model.api.expression.KtSetFieldElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
@@ -90,7 +90,7 @@ fun KtFieldElement.resolveType(): KtTypeElement? {
  * @return The resolved type of the property as a [KtTypeElement], or `null` if the type
  * cannot be determined.
  */
-fun KtPropertyElement.resolveType(): KtTypeElement? {
+fun KtPropertyElement.resolveType(): KtTypeElement {
     //todo make property::type nullable and resolve dynamicaly using
 //    val candidates = mutableListOf<KtTypeElement>()
 //    getter?.resolveType()?.also {

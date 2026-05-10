@@ -16,9 +16,15 @@
 
 package io.github.kshulzh.kefir.model.api
 
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
+
 /**
  * The base interface representing a Kotlin element within the model.
  * Serves as a common type for various elements with potential extensions
  * or custom behavior.
  */
-interface KtElement
+interface KtElement {
+    fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R {
+        return visitor.visitElement(this, data)
+    }
+}

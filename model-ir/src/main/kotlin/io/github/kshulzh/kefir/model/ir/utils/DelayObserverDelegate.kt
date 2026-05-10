@@ -49,7 +49,6 @@ class DelayObserverDelegate<T, V>(
 
     object UNDEF
 
-    @Suppress("UNCHECKED_CAST")
     var value: Any? = UNDEF
         get() = if (initializer != null) {
             field = initializer!!()

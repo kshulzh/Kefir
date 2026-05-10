@@ -19,6 +19,7 @@ package io.github.kshulzh.kefir.model.api.io
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.KtPath
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents the scope of a Kotlin package, providing operations for managing
@@ -71,6 +72,8 @@ interface KtPackageScope : KtElement {
     fun getFile(name: KtName): KtFileElement? {
         return packageElements.filterIsInstance<KtFileElement>().firstOrNull { it.name == name }
     }
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitPackageScope(this, data)
 }
 
 /**
@@ -97,6 +100,7 @@ fun KtPackageScope.getOrCreatePackage(name: KtName): KtPackageScope {
 fun KtPackageScope.getOrCreatePackage(path: KtPath): KtPackageScope {
     var current = this
     path.parts.forEach {
+        if (it.isEmpty()) return@forEach
         current = current.getOrCreatePackage(it)
     }
     return current

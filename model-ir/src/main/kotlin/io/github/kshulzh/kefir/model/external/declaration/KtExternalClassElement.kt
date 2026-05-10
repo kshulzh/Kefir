@@ -20,17 +20,22 @@ import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtExternalElement
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterElement
 import io.github.kshulzh.kefir.model.external.KtExternalRootPackageElement
 import io.github.kshulzh.kefir.model.external.annotation.wrapExternalAnnotations
+import io.github.kshulzh.kefir.model.external.type.KtExternalTypeParameterElement
+import io.github.kshulzh.kefir.model.external.type.wrapExternalType
 import io.github.kshulzh.kefir.transform.FirWrapper
 import io.github.kshulzh.kefir.transform.IrWrapper
 import org.jetbrains.kotlin.fir.backend.DelicateDeclarationStorageApi
 import org.jetbrains.kotlin.fir.declarations.DirectDeclarationsAccess
 import org.jetbrains.kotlin.fir.declarations.FirClass
+import org.jetbrains.kotlin.fir.declarations.FirTypeParameter
+import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.ir.declarations.IrClass
 
 class KtExternalClassElement(
@@ -48,8 +53,9 @@ class KtExternalClassElement(
     override val annotations: MutableList<KtAnnotationElement> by lazy {
         wrapExternalAnnotations(firElement.annotations, this).toMutableList()
     }
-    override val supertypes: MutableList<KtTypeElement>
-        get() = TODO("Not yet implemented")
+    override val supertypes: MutableList<KtTypeElement> by lazy {
+        firElement.superTypeRefs.map { wrapExternalType(it.coneType, root)!! }.toMutableList()
+    }
 
     @OptIn(DelicateDeclarationStorageApi::class)
     override val irElement: IrClass by lazy {
@@ -57,4 +63,6 @@ class KtExternalClassElement(
     }
 
     override fun toString() = "<CLASS> $name"
+    override var typeParameters: MutableList<KtTypeParameterElement> =
+        firElement.typeParameters.map { KtExternalTypeParameterElement(it as FirTypeParameter, root, this) }.toMutableList()
 }

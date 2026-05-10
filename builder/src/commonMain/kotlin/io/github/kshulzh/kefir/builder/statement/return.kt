@@ -19,9 +19,9 @@
 package io.github.kshulzh.kefir.builder.statement
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.statement.KtReturnStatementElement
-import io.github.kshulzh.kefir.model.api.statement.KtStatementsScope
 import io.github.kshulzh.kefir.model.statement.KtReturnElementImpl
 
 
@@ -33,7 +33,7 @@ import io.github.kshulzh.kefir.model.statement.KtReturnElementImpl
  * @param target The optional [KtElement] that represents the target of the return statement. Defaults to null.
  * @return An instance of [KtReturnStatementElement] representing the return statement.
  */
-fun KtStatementsScope.Return(expression: KtExpressionElement, target: KtElement? = null): KtReturnStatementElement =
+fun KtBlockElement.Return(expression: KtExpressionElement, target: KtElement? = null): KtReturnStatementElement =
     Return1(expression, target).also {
         statements.add(it)
     }
@@ -45,5 +45,5 @@ fun KtStatementsScope.Return(expression: KtExpressionElement, target: KtElement?
  * @param target an optional target element associated with the return statement, default is null
  * @return a `KtReturnStatementElement` instance initialized with the given parameters
  */
-fun KtStatementsScope.Return1(expression: KtExpressionElement, target: KtElement? = null): KtReturnStatementElement =
-    KtReturnElementImpl(expression, target, this)
+fun KtBlockElement.Return1(expression: KtExpressionElement, target: KtElement? = null): KtReturnStatementElement =
+    KtReturnElementImpl(expression, target, parent = this)

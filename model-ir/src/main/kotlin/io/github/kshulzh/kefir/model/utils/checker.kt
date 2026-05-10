@@ -17,15 +17,13 @@
 package io.github.kshulzh.kefir.model.utils
 
 import io.github.kshulzh.kefir.model.api.KtElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
-import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageScope
 import io.github.kshulzh.kefir.model.api.io.KtPackageScopeElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
 
 fun KtElement.linkCheck(): Boolean {
     return when (this) {
-        is KtExpressionElement -> linkCheck()
         is KtStatementElement -> linkCheck()
         is KtDeclarationElement -> linkCheck()
         is KtPackageScopeElement -> linkCheck()
@@ -34,12 +32,9 @@ fun KtElement.linkCheck(): Boolean {
     }
 }
 
-fun KtExpressionElement.linkCheck(): Boolean {
-    return parent?.linkCheck() ?: false
-}
 
 fun KtStatementElement.linkCheck(): Boolean {
-    return statementsScope?.linkCheck() ?: false
+    return parent?.linkCheck() ?: false
 }
 
 fun KtDeclarationElement.linkCheck(): Boolean {

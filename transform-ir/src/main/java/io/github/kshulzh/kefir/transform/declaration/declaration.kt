@@ -17,7 +17,12 @@
 package io.github.kshulzh.kefir.transform.declaration
 
 import io.github.kshulzh.kefir.ir.helper.KtIrInitDeclarationElement
-import io.github.kshulzh.kefir.model.api.declatation.*
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.transform.context.KtFirLocalTransformContext
 import io.github.kshulzh.kefir.transform.context.KtIrLocalTransformContext
 import org.jetbrains.kotlin.fir.declarations.FirDeclaration

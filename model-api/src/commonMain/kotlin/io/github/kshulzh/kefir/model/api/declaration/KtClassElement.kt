@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package io.github.kshulzh.kefir.model.api.declatation
+package io.github.kshulzh.kefir.model.api.declaration
 
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterScope
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a class element in the Kotlin model structure.
@@ -28,7 +30,8 @@ import io.github.kshulzh.kefir.model.api.type.KtTypeElement
  */
 interface KtClassElement : KtDeclarationElement,
     KtDeclarationsScope,
-    KtAnnotationsScope {
+    KtAnnotationsScope,
+    KtTypeParameterScope {
     /**
      * Represents the list of supertype elements declared in a class or interface.
      * Each supertype is represented as a [KtTypeElement].
@@ -38,4 +41,6 @@ interface KtClassElement : KtDeclarationElement,
      * the inheritance and type hierarchy for the associated [KtClassElement].
      */
     val supertypes: MutableList<KtTypeElement>
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitClass(this, data)
 }

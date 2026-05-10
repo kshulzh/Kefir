@@ -16,7 +16,9 @@
 
 package io.github.kshulzh.kefir.model.api.io
 
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a Kotlin file element within a package scope.
@@ -32,4 +34,6 @@ import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
  * - [KtPackageScopeElement]: Integrates the file as part of a package,
  *   enabling hierarchical package navigation and contextual scope resolution.
  */
-interface KtFileElement : KtDeclarationsScope, KtPackageScopeElement
+interface KtFileElement : KtDeclarationsScope, KtPackageScopeElement, KtAnnotationsScope {
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitFile(this, data)
+}

@@ -23,7 +23,7 @@ import io.github.kshulzh.kefir.builder.io.File
 import io.github.kshulzh.kefir.builder.io.Package
 import io.github.kshulzh.kefir.builder.statement.Return
 import io.github.kshulzh.kefir.builder.statement.St
-import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
 import io.github.kshulzh.kefir.model.api.type.KtBaseTypes
 import io.github.kshulzh.kefir.test.KefirCompilation
 import io.github.kshulzh.kefir.test.Klass
@@ -57,7 +57,7 @@ class PropertyTest {
                                 St(
                                     CallDelegate(
                                         it.external!!.Package("kotlin")
-                                            .Class("Any")!!.declarations.filterIsInstance<KtConstructorElement>()
+                                            .Class("Any").declarations.filterIsInstance<KtConstructorElement>()
                                             .first()
                                     )
                                 )

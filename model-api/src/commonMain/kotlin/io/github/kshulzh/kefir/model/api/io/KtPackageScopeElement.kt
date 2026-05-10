@@ -19,6 +19,7 @@ package io.github.kshulzh.kefir.model.api.io
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.KtPath
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents an element within a Kotlin package scope.
@@ -53,6 +54,8 @@ interface KtPackageScopeElement : KtElement {
      * parent scope.
      */
     var parent: KtPackageScope?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitPackageScopeElement(this, data)
 }
 
 /**
