@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package io.github.kshulzh.kefir.model.api.declatation
+package io.github.kshulzh.kefir.model.api.declaration
 
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
 import io.github.kshulzh.kefir.model.api.arg.KtParametersScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifierScope
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterScope
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a Kotlin function element within the Kotlin model structure.
@@ -34,7 +36,8 @@ import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 interface KtFunctionElement : KtDeclarationElement,
     KtParametersScope,
     KtModifierScope,
-    KtAnnotationsScope {
+    KtAnnotationsScope,
+    KtTypeParameterScope {
     /**
      * Represents the body of a function or declaration.
      *
@@ -56,4 +59,6 @@ interface KtFunctionElement : KtDeclarationElement,
      * is expected to return. If null, it means that the function does not have an explicitly defined return type.
      */
     var type: KtTypeElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitFunction(this, data)
 }

@@ -20,8 +20,11 @@ package io.github.kshulzh.kefir.builder.io
 
 import io.github.kshulzh.kefir.builder.KefirDslMarker
 import io.github.kshulzh.kefir.builder.declaration.Class
+import io.github.kshulzh.kefir.builder.declaration.FindClass
+import io.github.kshulzh.kefir.builder.declaration.NewClass
 import io.github.kshulzh.kefir.model.api.KtPath
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.io.KtFileElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageScope
 import io.github.kshulzh.kefir.model.api.io.getOrCreatePackage
@@ -38,23 +41,81 @@ import io.github.kshulzh.kefir.model.api.io.getOrCreatePackage
 inline fun KtPackageScope.Package(
     path: String,
     init: @KefirDslMarker KtPackageScope.() -> Unit = {}
-): KtPackageElement {
-    return this.getOrCreatePackage(KtPath(path.split(".").toMutableList())).also(init) as KtPackageElement
+): KtPackageScope {
+    return Package(KtPath(path.split(".").toMutableList()), init)
 }
 
 /**
- * Creates or retrieves a class declaration within a specific file in the current package scope.
- * If the file exists, it delegates the class creation or retrieval to the file scope.
- * If the file does not exist, it creates a new file with the specified name, adds it to the package scope,
- * and attempts to create or retrieve the class within the new file.
+ * Creates or retrieves a nested package structure within the current `KtPackageScope`
+ * based on the specified `KtPath`. If the path is empty, the current scope is returned.
+ * Otherwise, it navigates through the path and initializes subpackages as needed.
+ * Optionally, applies the given initialization block to the resulting package scope.
  *
- * @param name The name of the class to create or retrieve.
- * @param init A DSL initialization block to configure the class if it is newly created.
- * @return An instance of [KtClassElement] representing the class, or null if it cannot be created or retrieved.
+ * @param path The `KtPath` representing the hierarchical structure of the package to create or retrieve.
+ * @param init An optional DSL initialization block to configure the resulting `KtPackageScope`.
+ * @return The `KtPackageScope` corresponding to the deepest package in the given `KtPath`.
  */
-inline fun KtPackageScope.Class(name: String, init: @KefirDslMarker KtClassElement.() -> Unit = {}): KtClassElement? {
-    File("$name.kt") {
-        return this.Class(name, init)
+inline fun KtPackageScope.Package(
+    path: KtPath,
+    init: @KefirDslMarker KtPackageScope.() -> Unit = {}
+): KtPackageScope{
+    if (path.parts.isEmpty()) return this
+    return this.getOrCreatePackage(path).also(init)
+}
+
+/**
+ * Retrieves an existing class by name within the current package scope or creates a new one if it does not exist.
+ *
+ * If the named class is found, it is returned after applying the DSL initialization block.
+ * If the class is not found, a new class is created using*/
+inline fun KtPackageScope.Class(name: String, init: @KefirDslMarker KtClassElement.() -> Unit = {}): KtClassElement {
+    return FindClass(name, init) ?: File(name).NewClass(name, init)
+}
+
+/**
+ * Searches for a Kotlin class by its name within the current package scope and optionally
+ * applies an initialization block to it if the class is found.
+ *
+ * The method first attempts to locate a corresponding file with the name `{name}.kt` in
+ **/
+inline fun KtPackageScope.FindClass(name: String, init: @KefirDslMarker KtClassElement.() -> Unit = {}): KtClassElement? {
+    FindFile("$name.kt")?.FindClass(name, init)?.let { return it }
+
+    if (packageElements.isEmpty()) return null
+    return packageElements.filterIsInstance<KtFileElement>().firstNotNullOf { it.FindClass(name, init) }
+}
+
+/**
+ * Creates or retrieves a `KtClassElement` within the current package scope based on the provided hierarchical path.
+ * If the path contains multiple parts, this method recursively creates or accesses nested class elements.
+ *
+ * @param path The hierarchical path to the class, represented as a [KtPath].*/
+inline fun KtPackageScope.Class(path: KtPath, init: @KefirDslMarker KtClassElement.() -> Unit = {}): KtClassElement {
+    if (path.parts.isEmpty()) throw IllegalArgumentException("Path must contain at least one part")
+    if (path.parts.size == 1) return Class(path.parts.first(), init)
+    return Class(path.parts.first()).Class(path.dropFirst(), init)
+}
+
+/**
+ * Finds a class within the current package scope based on a hierarchical [path].
+ *
+ * This function recursively resolves the path to locate the target class element.
+ * If the path consists of multiple components, it navigates through nested packages
+ * or classes*/
+inline fun KtPackageScope.FindClass(path: KtPath, init: @KefirDslMarker KtClassElement.() -> Unit = {}): KtClassElement? {
+    if (path.parts.isEmpty()) return null
+    if (path.parts.size == 1) return FindClass(path.parts.first(), init)
+    return FindClass(path.parts.first())?.FindClass(path.dropFirst(), init)
+}
+
+/**
+ * Creates a new class element within a newly created Kotlin file in the current package scope.
+ *
+ * This function creates a new file with the specified name in the current package scope
+ * and then initializes a new instance of [Kt*/
+inline fun KtPackageScope.NewClass(name: String, init: @KefirDslMarker KtClassElement.() -> Unit = {}): KtClassElement? {
+    NewFile("$name.kt") {
+        return this.NewClass(name, init)
     }
     return null
 }

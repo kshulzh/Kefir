@@ -21,7 +21,7 @@ import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.transform.context.KtTransformContext
 import org.jetbrains.kotlin.ir.expressions.*
 
-fun wrapExpression(
+fun wrapIrExpression(
     irExpression: IrExpression,
     transformContext: KtTransformContext,
     parent: KtElement? = null
@@ -33,7 +33,7 @@ fun wrapExpression(
         is IrGetValue -> KtIrGetValueElement(irExpression, transformContext, parent)
         is IrSetField -> KtIrSetFieldElement(irExpression, transformContext, parent)
         //todo check else
-        is IrWhen if irExpression.branches.size == 1 || irExpression.branches.size == 2 -> wrapExpression(
+        is IrWhen if (irExpression.branches.size == 1 || irExpression.branches.size == 2) -> wrapIrExpression(
             irExpression.branches.first().result,
             transformContext,
             parent

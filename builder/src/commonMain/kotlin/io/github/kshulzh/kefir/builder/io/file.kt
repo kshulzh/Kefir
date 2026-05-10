@@ -33,7 +33,40 @@ import io.github.kshulzh.kefir.model.declatation.KtFileElementImpl
  * @return The `KtFileElement` that was created or retrieved.
  */
 inline fun KtPackageScope.File(name: String, init: @KefirDslMarker KtFileElement. () -> Unit = {}): KtFileElement {
-    return getFile(name)?.also(init) ?: KtFileElementImpl(name, parent = this).also {
+    return FindFile(name, init) ?: NewFile(name, init)
+}
+
+/**
+ * Finds a file within the current package scope by its name and optionally applies an initialization block to it.
+ *
+ * The method searches for a file with the specified name using the current package scope.
+ * If the file is found, the provided initialization block is executed on it.
+ * Returns the `KtFileElement` if found, otherwise returns `null`.
+ *
+ * @param name The name of the file to be searched for in the current package scope.
+ * @param init An optional initialization block that can be applied to the found `KtFileElement`.
+ * @return The `KtFileElement` matching the provided name if found, otherwise `null`.
+ */
+inline fun KtPackageScope.FindFile(name: String, init: @KefirDslMarker KtFileElement. () -> Unit = {}): KtFileElement? {
+    return getFile(name)?.also(init)
+}
+
+/**
+ * Creates a new Kotlin file element within the current package scope.
+ *
+ * This function allows the creation of a `KtFileElement` with the specified name
+ * and an optional initialization block for configuring its properties or contents.
+ * The newly created file element is automatically added to the `packageElements`
+ * of the current package scope.
+ *
+ * @param name The name of the new file to be created.
+ * @param init An optional initialization block for configuring the new file element.
+ *             The block operates within the receiver scope of the created `KtFileElement`.
+ *             Defaults to an empty block if not provided.
+ * @return The newly created `KtFileElement` instance.
+ */
+inline fun KtPackageScope.NewFile(name: String, init: @KefirDslMarker KtFileElement. () -> Unit = {}): KtFileElement {
+    return KtFileElementImpl(name, parent = this).also {
         it.init()
         packageElements.add(it)
     }

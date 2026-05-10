@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package io.github.kshulzh.kefir.model.api.declatation
+package io.github.kshulzh.kefir.model.api.declaration
 
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifierScope
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a field element in the Kotlin model structure.
@@ -52,4 +53,6 @@ interface KtFieldElement : KtDeclarationElement,
      * it represents. It is associated with the containing [KtFieldElement].
      */
     var value: KtExpressionElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitField(this, data)
 }

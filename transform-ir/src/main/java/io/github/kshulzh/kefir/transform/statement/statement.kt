@@ -17,7 +17,7 @@
 package io.github.kshulzh.kefir.transform.statement
 
 import io.github.kshulzh.kefir.ir.helper.KtIrInitStatementElement
-import io.github.kshulzh.kefir.model.api.statement.KtExpressionStatement
+import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.statement.KtReturnStatementElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
 import io.github.kshulzh.kefir.transform.context.KtFirLocalTransformContext
@@ -43,8 +43,8 @@ import org.jetbrains.kotlin.ir.IrStatement
 fun KtIrLocalTransformContext.transformIrStatement(input: KtStatementElement): IrStatement? {
     return when (input) {
         is KtReturnStatementElement -> irTransform(input)
-        is KtExpressionStatement -> irTransform(input)
         is KtIrInitStatementElement -> irTransform(input)
+        is KtExpressionElement -> irTransform(input)
         else -> null
     }
 }

@@ -18,25 +18,14 @@
 
 package io.github.kshulzh.kefir.builder.statement
 
-import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
+import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
-import io.github.kshulzh.kefir.model.api.statement.KtStatementsScope
-import io.github.kshulzh.kefir.model.statement.KtExpressionStatementElementImpl
 
 /**
  * Adds a given statement to the statements list of the current scope.
  *
  * @param statement the statement to be added to the scope
  */
-fun KtStatementsScope.St(statement: KtStatementElement) {
+fun KtBlockElement.St(statement: KtStatementElement) {
     this.statements.add(statement)
-}
-
-/**
- * Adds a statement to the current scope using the provided expression.
- *
- * @param expression The expression to be wrapped as a statement and added to the scope.
- */
-fun KtStatementsScope.St(expression: KtExpressionElement) {
-    statements.add(KtExpressionStatementElementImpl(expression, this))
 }

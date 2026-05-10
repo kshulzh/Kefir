@@ -19,6 +19,7 @@ package io.github.kshulzh.kefir.model.api.annotation
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.arg.KtArgumentsScope
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents an annotation element in the Kotlin model structure.
@@ -41,4 +42,6 @@ interface KtAnnotationElement : KtElement, KtArgumentsScope {
      * the list of annotations directly related to the declaring `KtAnnotationElement`.
      */
     var annotationScope: KtAnnotationsScope?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitAnnotation(this, data)
 }

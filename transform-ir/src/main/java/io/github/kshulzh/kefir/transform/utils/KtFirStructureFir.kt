@@ -102,6 +102,8 @@ class KtFirStructureFir(
         }
     }
 
+    override val symbolNamesProvider: FirSymbolNamesProvider get() = symbolNameProvider
+
     /**
      * Retrieves a class-like symbol associated with the given class identifier.
      *
@@ -171,11 +173,6 @@ class KtFirStructureFir(
         TODO("Not yet implemented")
     }
 
-    /**
-     * Provides access to the symbol names within the current structure.
-     * This property is used to retrieve a provider responsible for managing and querying symbol names.
-     */
-    override val symbolNamesProvider: FirSymbolNamesProvider get() = symbolNamesProvider
 
     /**
      * Adds a property declaration to the given class use-site member scope.

@@ -17,18 +17,44 @@
 package io.github.kshulzh.kefir.model.ir.expression
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 import io.github.kshulzh.kefir.transform.IrWrapper
 import io.github.kshulzh.kefir.transform.context.KtTransformContext
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 
+/**
+ * Represents an IR-specific implementation of `KtExpressionElement` in the Kotlin model.
+ *
+ * This class encapsulates an IR (Intermediate Representation) expression and provides
+ * additional context and metadata for transformation processes within the Kotlin compilation pipeline.
+ * It serves as a specialized element that incorporates both frontend and IR-specific behavior
+ * while being seamlessly integrated into the hierarchy of Kotlin*/
 class KtIrExpressionElement(
     override val irElement: IrExpression,
     var transformContext: KtTransformContext,
     override var parent: KtElement? = null,
 ) : KtExpressionElement, IrWrapper<IrExpression> {
+    /**
+     * Represents the type information associated with the current element.
+     *
+     * This property acts as a reference to the type descriptor of the Kotlin expression
+     * or statement represented by the element. It is useful for type analysis,
+     * validation, and transformation workflows during intermediate representation (IR) processing.
+     *
+     * The type structure adheres to the abstraction provided by*/
     override var type: KtTypeElement?
         get() = TODO("Not yet implemented")
         set(value) {}
+
+    /**
+     * A mutable list holding annotation elements associated with this expression element.
+     *
+     * This list contains instances of `KtAnnotationElement`, representing the annotations
+     * applied to the current Kotlin IR expression element. The annotations can be utilized
+     * for metadata representation or for implementing additional behaviors in transformations
+     * and code analysis processes.
+     */
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf()
 }

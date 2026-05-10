@@ -20,10 +20,14 @@ import io.github.kshulzh.kefir.ir.helper.KtIrInitDeclarationElement
 import io.github.kshulzh.kefir.ir.helper.KtIrInitExpressionElement
 import io.github.kshulzh.kefir.ir.helper.KtIrInitStatementElement
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.*
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.*
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
-import io.github.kshulzh.kefir.model.api.statement.KtExpressionStatement
 import io.github.kshulzh.kefir.model.api.statement.KtReturnStatementElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
 import io.github.kshulzh.kefir.model.api.type.KtBaseTypes
@@ -36,7 +40,6 @@ import io.github.kshulzh.kefir.transform.expression.*
 import io.github.kshulzh.kefir.transform.statement.transformIrInitStatement
 import io.github.kshulzh.kefir.transform.statement.transformIrReturn
 import io.github.kshulzh.kefir.transform.statement.transformIrStatement
-import io.github.kshulzh.kefir.transform.statement.transformIrStatementExpression
 import io.github.kshulzh.kefir.transform.type.transformBaseIrType
 import io.github.kshulzh.kefir.transform.type.transformClassIrType
 import io.github.kshulzh.kefir.transform.type.transformIrType
@@ -115,10 +118,10 @@ open class IrTransformer {
     open operator fun invoke(element: KtPropertyElement): IrProperty? = c.transformIrProperty(element)
 
     /**
-     * Transforms a given [KtFieldElement] into its corresponding IR (Intermediate Representation) field representation.
+     * Transforms a given [io.github.kshulzh.kefir.model.api.declaration.KtFieldElement] into its corresponding IR (Intermediate Representation) field representation.
      *
      * @param element The field element to be transformed.
-     * @return The transformed [IrField] representation of the given [KtFieldElement], or `null` if the transformation cannot be performed.
+     * @return The transformed [IrField] representation of the given [io.github.kshulzh.kefir.model.api.declaration.KtFieldElement], or `null` if the transformation cannot be performed.
      */
     context(c: KtIrLocalTransformContext)
     open operator fun invoke(element: KtFieldElement): IrField? = c.transformIrField(element)
@@ -306,19 +309,6 @@ open class IrTransformer {
      */
     context(c: KtIrLocalTransformContext)
     open operator fun invoke(element: KtReturnStatementElement): IrReturn? = c.transformIrReturn(element)
-
-    /**
-     * Invokes the transformation of a `KtExpressionStatement` into an `IrExpression` within the
-     * provided `KtIrLocalTransformContext`.
-     *
-     * @param element The `KtExpressionStatement` representing a single expression as a statement in
-     *        the Kotlin abstract syntax tree (AST). This element is transformed into its corresponding
-     *        intermediate representation.
-     * @return An `IrExpression` resulting from the transformation of the given `element`, or `null`
-     *         if the transformation is not applicable or fails.
-     */
-    context(c: KtIrLocalTransformContext)
-    open operator fun invoke(element: KtExpressionStatement): IrExpression? = c.transformIrStatementExpression(element)
 
     /**
      * Transforms the provided `KtIrInitStatementElement` into an `IrStatement` within the context

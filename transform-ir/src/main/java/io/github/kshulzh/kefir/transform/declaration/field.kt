@@ -16,7 +16,7 @@
 
 package io.github.kshulzh.kefir.transform.declaration
 
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
 import io.github.kshulzh.kefir.transform.context.KtFirLocalTransformContext
 import io.github.kshulzh.kefir.transform.context.KtIrLocalTransformContext
 import io.github.kshulzh.kefir.transform.utils.getIrOrExternal

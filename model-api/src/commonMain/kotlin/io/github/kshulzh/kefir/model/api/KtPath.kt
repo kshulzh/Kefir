@@ -26,7 +26,7 @@ package io.github.kshulzh.kefir.model.api
  * @property parts A mutable list of `KtName` components representing the path segments.
  */
 @JvmInline
-value class KtPath(val parts: MutableList<KtName>) {
+value class KtPath(val parts: List<KtName>) {
     /**
      * Secondary constructor for creating a [KtPath] instance using a variable number of [KtName] arguments.
      *
@@ -34,7 +34,7 @@ value class KtPath(val parts: MutableList<KtName>) {
      *
      * @param parts A variable number of Kotlin name strings represented as [KtName].
      */
-    constructor(vararg parts: KtName) : this(parts.toMutableList())
+    constructor(vararg parts: KtName) : this(parts.toList())
 
     /**
      * Secondary constructor for the `KtPath` class, allowing initialization via a raw string.
@@ -43,7 +43,7 @@ value class KtPath(val parts: MutableList<KtName>) {
      *
      * @param raw The raw string representation of the path, where components are separated by periods (`.`).
      */
-    constructor(raw: String) : this(raw.split(".").toMutableList())
+    constructor(raw: String) : this(raw.split("."))
 
     /**
      * Converts the parts of the path into a string representation, with each part
@@ -54,4 +54,12 @@ value class KtPath(val parts: MutableList<KtName>) {
     override fun toString(): String {
         return parts.joinToString(".") { it }
     }
+
+    fun dropFirst(): KtPath {
+        if (parts.isEmpty()) return this
+        return KtPath(parts.drop(1))
+    }
+
+    operator fun get(index: Int): KtName = parts[index]
+
 }

@@ -18,7 +18,8 @@ package io.github.kshulzh.kefir.model.declatation
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtName
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageScope
 
@@ -43,6 +44,7 @@ class KtFileElementImpl(
     override var name: KtName,
     override var parent: KtPackageScope? = null,
     override var declarations: MutableSet<KtDeclarationElement> = mutableSetOf(),
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
 ) : KtFileElement, KtAttributes {
     override fun toString() = "<FILE> $name"

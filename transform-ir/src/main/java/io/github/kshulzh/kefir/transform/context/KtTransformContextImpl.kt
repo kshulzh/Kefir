@@ -16,6 +16,7 @@
 
 package io.github.kshulzh.kefir.transform.context
 
+import io.github.kshulzh.kefir.model.api.io.KtPackageScope
 import io.github.kshulzh.kefir.transform.transformer.FirTransformer
 import io.github.kshulzh.kefir.transform.transformer.IrTransformer
 import io.github.kshulzh.kefir.transform.utils.KtFirStructureImpl
@@ -97,6 +98,8 @@ class KtTransformContextImpl(
      * of the Kotlin compiler.
      */
     override val firStructure: KtFirStructureImpl
+    override lateinit var root: KtPackageScope
+    override lateinit var externalRoot: KtPackageScope
 
     init {
         val fir2IrComponents = Fir2IrPluginContext::class.java.getDeclaredField("c").let {

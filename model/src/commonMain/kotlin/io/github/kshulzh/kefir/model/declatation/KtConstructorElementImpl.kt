@@ -18,10 +18,12 @@ package io.github.kshulzh.kefir.model.declatation
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtName
-import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifier
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterElement
 
 /**
  * Represents an implementation of a Kotlin constructor element within the abstract syntax tree (AST).
@@ -45,7 +47,9 @@ class KtConstructorElementImpl(
     override var declarationsScope: KtDeclarationsScope?,
     override var name: KtName = "<counstructor>",
     override var modifiers: MutableSet<KtModifier> = mutableSetOf(),
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
+    override var typeParameters: MutableList<KtTypeParameterElement> = mutableListOf(),
 ) : KtConstructorElement, KtAttributes {
     override fun toString(): String = "<CONSTRUCTOR>"
 }

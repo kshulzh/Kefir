@@ -18,8 +18,8 @@ package io.github.kshulzh.kefir.model.fir.declaration
 
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifier
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement

@@ -16,7 +16,9 @@
 
 package io.github.kshulzh.kefir.model.api.expression
 
-import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.arg.KtArgumentsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a delegating constructor call element within the Kotlin abstract syntax tree (AST).
@@ -28,7 +30,7 @@ import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
  * This interface extends [KtExpressionElement], enabling it to include type information and
  * hierarchical positioning within the AST.
  */
-interface KtDelegatingConstructorCallElement : KtExpressionElement {
+interface KtDelegatingConstructorCallElement : KtExpressionElement, KtArgumentsScope {
     /**
      * Represents the constructor element associated with a delegating constructor call.
      *
@@ -39,15 +41,5 @@ interface KtDelegatingConstructorCallElement : KtExpressionElement {
      */
     val constructor: KtConstructorElement
 
-    /**
-     * Represents a mutable list of expressions that can be part of a delegating constructor call.
-     *
-     * Each entry in the list corresponds to an expression element, which may optionally be null,
-     * representing the arguments passed to the constructor.
-     *
-     * Used within the context of elements that inherit from [KtDelegatingConstructorCallElement],
-     * these arguments facilitate the association of specific expressions with the delegating
-     * constructor being invoked.
-     */
-    val arguments: MutableList<KtExpressionElement?>
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitDelegatingConstructorCall(this, data)
 }

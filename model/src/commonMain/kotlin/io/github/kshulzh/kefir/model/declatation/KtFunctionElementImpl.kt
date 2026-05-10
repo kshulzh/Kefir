@@ -20,11 +20,12 @@ import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifier
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterElement
 import io.github.kshulzh.kefir.model.utils.createListDelegate
 import io.github.kshulzh.kefir.model.utils.createNullableDelegate
 
@@ -61,6 +62,7 @@ class KtFunctionElementImpl(
     override var annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     parameters: MutableList<KtParameterElement> = mutableListOf(),
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
+    override var typeParameters: MutableList<KtTypeParameterElement> = mutableListOf(),
 ) : KtFunctionElement, KtAttributes {
     init {
         for (element in parameters) {

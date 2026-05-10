@@ -17,6 +17,8 @@
 package io.github.kshulzh.kefir.model.api.arg
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a scope containing argument elements in the Kotlin model.
@@ -35,5 +37,9 @@ interface KtArgumentsScope : KtElement {
      * a function call, annotation, or any other construct supporting arguments in the
      * Kotlin model.
      */
-    var arguments: MutableList<KtArgumentElement>
+    var arguments: MutableList<KtExpressionElement?>
+
+    var argumentMap: MutableMap<String, KtExpressionElement?>
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitArgumentsScope(this, data)
 }

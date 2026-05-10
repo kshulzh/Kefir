@@ -54,7 +54,6 @@ class KefirIrExtension(
      * @param pluginContext The plugin context that provides access to various components in the Kotlin compiler.
      */
     @OptIn(SymbolInternals::class)
-    @Suppress("UNCHECKED_CAST")
     override fun generate(
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext
@@ -80,12 +79,12 @@ class KefirIrExtension(
                 ktTransformContext.firStructure.symbolNameProvider
             )
 
-            val root = KtIrRootPackageElement(ktTransformContext, moduleFragment.files)
+            ktTransformContext.root = KtIrRootPackageElement(ktTransformContext, moduleFragment.files)
 
-            val externalRootPackageElement = KtExternalRootPackageElement(ktTransformContext, symbolProvider)
-            val ktContext = KtContext(externalRootPackageElement)
+            ktTransformContext.externalRoot  = KtExternalRootPackageElement(ktTransformContext, symbolProvider)
+            val ktContext = KtContext(ktTransformContext.externalRoot)
             with(processor) {
-                root.process(ktContext)
+                ktTransformContext.root.process(ktContext)
             }
 
             val res = ktTransformContext.problemContext?.actionManager?.resolve()

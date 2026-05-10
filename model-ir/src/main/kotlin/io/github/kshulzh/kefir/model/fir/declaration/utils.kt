@@ -16,8 +16,8 @@
 
 package io.github.kshulzh.kefir.model.fir.declaration
 
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.transform.context.KtTransformContext
 import org.jetbrains.kotlin.fir.declarations.*
 

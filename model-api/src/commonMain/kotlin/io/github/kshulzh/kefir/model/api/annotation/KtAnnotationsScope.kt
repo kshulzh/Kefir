@@ -17,6 +17,7 @@
 package io.github.kshulzh.kefir.model.api.annotation
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a scope containing annotations in the Kotlin model structure.
@@ -33,4 +34,6 @@ interface KtAnnotationsScope : KtElement {
      * handling and processing annotations systematically within the model.
      */
     val annotations: MutableList<KtAnnotationElement>
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitAnnotationsScope(this, data)
 }

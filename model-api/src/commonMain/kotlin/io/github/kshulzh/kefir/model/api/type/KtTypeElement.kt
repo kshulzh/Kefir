@@ -17,6 +17,7 @@
 package io.github.kshulzh.kefir.model.api.type
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents the base abstraction for type-related elements in the Kotlin type system.
@@ -30,4 +31,6 @@ import io.github.kshulzh.kefir.model.api.KtElement
  * Implementers of this interface can represent distinct types or type hierarchies,
  * providing essential information needed in type modeling, validation, or transformation contexts.
  */
-interface KtTypeElement : KtElement
+interface KtTypeElement : KtElement {
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitType(this, data)
+}

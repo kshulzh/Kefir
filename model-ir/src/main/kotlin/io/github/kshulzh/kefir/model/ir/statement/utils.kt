@@ -16,8 +16,9 @@
 
 package io.github.kshulzh.kefir.model.ir.statement
 
+import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
-import io.github.kshulzh.kefir.model.api.statement.KtStatementsScope
+import io.github.kshulzh.kefir.model.ir.expression.wrapIrExpression
 import io.github.kshulzh.kefir.transform.context.KtTransformContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.expressions.IrExpression
@@ -26,12 +27,12 @@ import org.jetbrains.kotlin.ir.expressions.IrReturn
 fun wrapIrStatement(
     irStatement: IrStatement,
     transformContext: KtTransformContext,
-    parent: KtStatementsScope? = null
+    parent: KtElement? = null
 ): KtStatementElement? {
 
     return when (irStatement) {
         is IrReturn -> KtIrReturnStatementElement(irStatement, transformContext, parent)
-        is IrExpression -> KtIrStatementExpressionElement(irStatement, transformContext, parent)
+        is IrExpression -> wrapIrExpression(irStatement, transformContext, parent)
         else -> KtIrStatementElement(irStatement, transformContext, parent)
     }
 }

@@ -18,7 +18,8 @@ package io.github.kshulzh.kefir.model.external.declaration
 
 import io.github.kshulzh.kefir.model.api.KtExternalElement
 import io.github.kshulzh.kefir.model.api.KtName
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageScope
 import io.github.kshulzh.kefir.model.external.KtExternalRootPackageElement
@@ -31,4 +32,6 @@ class KtExternalFileElement(
 ) : KtFileElement, KtExternalElement {
 
     override fun toString() = "<FILE> $name"
+    override val annotations: MutableList<KtAnnotationElement>
+        get() = TODO("Not yet implemented")
 }

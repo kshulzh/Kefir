@@ -16,6 +16,8 @@
 
 package io.github.kshulzh.kefir.model.api.expression
 
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
+
 /**
  * Represents a constant expression element in the Kotlin abstract syntax tree (AST).
  * A constant expression refers to a value that is evaluated or resolved at compile time.
@@ -33,4 +35,6 @@ interface KtConstElement<T> : KtExpressionElement {
      * It allows the storage of constant values such as strings, booleans, or null.
      */
     var value: T?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitConst(this, data)
 }
