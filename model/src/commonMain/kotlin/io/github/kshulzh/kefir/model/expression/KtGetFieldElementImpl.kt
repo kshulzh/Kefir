@@ -18,7 +18,8 @@ package io.github.kshulzh.kefir.model.expression
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtElement
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetFieldElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
@@ -52,6 +53,7 @@ class KtGetFieldElementImpl(
     override var field: KtFieldElement,
     receiver: KtExpressionElement?,
     override var type: KtTypeElement?,
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var parent: KtElement? = null,
     override var attributes: MutableMap<String, Any> = mutableMapOf()
 ) : KtGetFieldElement, KtAttributes {

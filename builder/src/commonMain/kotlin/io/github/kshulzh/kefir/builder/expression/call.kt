@@ -17,7 +17,7 @@
 
 package io.github.kshulzh.kefir.builder.expression
 
-import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
 import io.github.kshulzh.kefir.model.api.expression.KtDelegatingConstructorCallElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.expression.KtDelegatingConstructorCallElementImpl

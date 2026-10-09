@@ -16,7 +16,8 @@
 
 package io.github.kshulzh.kefir.model.api.expression
 
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a field-setting expression within the Kotlin abstract syntax tree (AST).
@@ -62,4 +63,6 @@ interface KtSetFieldElement : KtExpressionElement {
      * in a Kotlin-based abstract syntax tree.
      */
     var value: KtExpressionElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitSetField(this, data)
 }

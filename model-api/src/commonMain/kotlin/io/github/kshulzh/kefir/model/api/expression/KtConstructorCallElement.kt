@@ -16,7 +16,9 @@
 
 package io.github.kshulzh.kefir.model.api.expression
 
-import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.arg.KtArgumentsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a constructor call expression in the Kotlin abstract syntax tree (AST).
@@ -26,7 +28,7 @@ import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
  * models a specific invocation of a constructor and provides properties for accessing
  * the invoked constructor and its arguments.
  */
-interface KtConstructorCallElement : KtExpressionElement {
+interface KtConstructorCallElement : KtExpressionElement, KtArgumentsScope {
     /**
      * Represents the constructor element associated with the current instance of [KtConstructorCallElement].
      *
@@ -40,13 +42,5 @@ interface KtConstructorCallElement : KtExpressionElement {
      */
     val constructor: KtConstructorElement
 
-    /**
-     * Represents a mutable list of argument expressions associated with a constructor call.
-     * Each argument is represented as a nullable [KtExpressionElement], allowing for the
-     * possibility of unnamed or uninitialized arguments.
-     *
-     * This property is used to store the arguments passed to a constructor during its invocation.
-     * The list can be modified to add, remove, or update the arguments.
-     */
-    val arguments: MutableList<KtExpressionElement?>
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitConstructorCall(this, data)
 }

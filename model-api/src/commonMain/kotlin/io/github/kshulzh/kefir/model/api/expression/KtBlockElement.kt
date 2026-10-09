@@ -16,7 +16,8 @@
 
 package io.github.kshulzh.kefir.model.api.expression
 
-import io.github.kshulzh.kefir.model.api.statement.KtStatementsScope
+import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a block element within the Kotlin abstract syntax tree (AST).
@@ -27,7 +28,10 @@ import io.github.kshulzh.kefir.model.api.statement.KtStatementsScope
  * enabling it to store statements and optionally have a type or parent context.
  *
  * It inherits properties and behavior from:
- * - [KtStatementsScope]: allowing the storage and management of contained statements.
  * - [KtExpressionElement]: providing type information and hierarchical positioning within the AST.
  */
-interface KtBlockElement : KtStatementsScope, KtExpressionElement
+interface KtBlockElement : KtExpressionElement {
+    val statements: MutableList<KtStatementElement>
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitBlock(this, data)
+}

@@ -21,10 +21,14 @@ import io.github.kshulzh.kefir.ir.helper.KtIrInitExpressionElement
 import io.github.kshulzh.kefir.ir.helper.KtIrInitStatementElement
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.*
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.*
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
-import io.github.kshulzh.kefir.model.api.statement.KtExpressionStatement
 import io.github.kshulzh.kefir.model.api.statement.KtReturnStatementElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
 import io.github.kshulzh.kefir.model.api.type.KtBaseTypes
@@ -78,7 +82,7 @@ class AdvancedIrTransformer : IrTransformer() {
      * within the context of local IR transformation. The transformation is applied using the parent class's implementation,
      * wrapped with additional processing.
      *
-     * @param element The class element to transform, represented as a [KtClassElement]. This element encapsulates the
+     * @param element The class element to transform, represented as a [io.github.kshulzh.kefir.model.api.declaration.KtClassElement]. This element encapsulates the
      * structure and characteristics of a Kotlin class.
      * @return The transformed IR class, represented as an [IrClass], or `null` if the transformation could not be performed.
      */
@@ -91,10 +95,10 @@ class AdvancedIrTransformer : IrTransformer() {
      * Transforms the provided Kotlin function element into an intermediate representation (IR) function.
      *
      * This method uses the context of the [KtIrLocalTransformContext] to apply specific transformations
-     * on a [KtFunctionElement]. It wraps the input element and delegates to the superclass implementation
+     * on a [io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement]. It wraps the input element and delegates to the superclass implementation
      * to perform the transformation.
      *
-     * @param element The Kotlin function element to be transformed, represented as a [KtFunctionElement].
+     * @param element The Kotlin function element to be transformed, represented as a [io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement].
      *                This element contains the structure, annotations, and body of the function
      *                being processed.
      * @return An [IrFunction] representing the intermediate representation of the transformed function,
@@ -133,9 +137,9 @@ class AdvancedIrTransformer : IrTransformer() {
     }
 
     /**
-     * Transforms a [KtConstructorElement] into an [IrConstructor] using the provided transformation context.
+     * Transforms a [io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement] into an [IrConstructor] using the provided transformation context.
      *
-     * @param element The [KtConstructorElement] to be transformed. Represents a Kotlin constructor
+     * @param element The [io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement] to be transformed. Represents a Kotlin constructor
      *        element within the Kotlin model structure, which includes initialization logic for the
      *        class it belongs to.
      * @return An [IrConstructor] representing the IR (Intermediate Representation) equivalent of the
@@ -344,17 +348,6 @@ class AdvancedIrTransformer : IrTransformer() {
      */
     context(c: KtIrLocalTransformContext)
     override fun invoke(element: KtReturnStatementElement): IrReturn? {
-        return wrap(element) { super.invoke(it) }
-    }
-
-    /**
-     * Transforms a [KtExpressionStatement] into an IR representation.
-     *
-     * @param element The [KtExpressionStatement] to be transformed.
-     * @return The resulting [IrExpression] after transformation, or null if the transformation does not yield an IR expression.
-     */
-    context(c: KtIrLocalTransformContext)
-    override fun invoke(element: KtExpressionStatement): IrExpression? {
         return wrap(element) { super.invoke(it) }
     }
 

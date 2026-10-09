@@ -16,7 +16,8 @@
 
 package io.github.kshulzh.kefir.model.api.expression
 
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents an expression element that retrieves the value of a specified field.
@@ -59,4 +60,6 @@ interface KtGetFieldElement : KtExpressionElement {
      * field and its accessing context.
      */
     var receiver: KtExpressionElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitGetField(this, data)
 }

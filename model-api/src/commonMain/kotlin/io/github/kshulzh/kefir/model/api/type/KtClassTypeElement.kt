@@ -17,6 +17,9 @@
 package io.github.kshulzh.kefir.model.api.type
 
 import io.github.kshulzh.kefir.model.api.KtPath
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a model for a Kotlin class type within the type system.
@@ -25,7 +28,7 @@ import io.github.kshulzh.kefir.model.api.KtPath
  * Kotlin class types, including their associated package, class name, nullability,
  * and type arguments.
  */
-interface KtClassTypeElement : KtTypeElement {
+interface KtClassTypeElement : KtTypeElement, KtTypeArgumentScope, KtAnnotationsScope {
     /**
      * Represents the package path of a class type element in Kotlin.
      * It is modeled using the `KtPath` type, which stores the fully qualified path
@@ -70,5 +73,9 @@ interface KtClassTypeElement : KtTypeElement {
      * intermediate representations of types in both IR (Intermediate Representation) and FIR
      * (Frontend Intermediate Representation).
      */
-    val typeArguments: MutableList<KtTypeElement>
+    override var typeArguments: MutableList<KtTypeElement>
+
+    val klass: KtClassElement?
+
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitClassType(this, data)
 }

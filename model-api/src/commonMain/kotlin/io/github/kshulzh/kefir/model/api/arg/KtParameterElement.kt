@@ -18,14 +18,16 @@ package io.github.kshulzh.kefir.model.api.arg
 
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.KtName
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationsScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
  * Represents a parameter element in the Kotlin language model.
  * Typically describes parameters of functions, constructors, lambdas, or other callable entities.
  */
-interface KtParameterElement : KtElement {
+interface KtParameterElement : KtElement, KtAnnotationsScope {
     /**
      * Represents the name of the parameter in a Kotlin model.
      *
@@ -84,7 +86,9 @@ interface KtParameterElement : KtElement {
      */
     var kind: Kind?
 
-    /**
+    override fun <R, D> accept(visitor: KtVisitor<R, D>, data: D): R = visitor.visitParameter(this, data)
+
+        /**
      * Represents the kind of a parameter in the Kotlin model.
      * Defines whether the parameter is a regular parameter or a dispatch receiver.
      */

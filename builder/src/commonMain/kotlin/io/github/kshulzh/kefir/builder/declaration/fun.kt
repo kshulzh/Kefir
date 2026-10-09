@@ -20,12 +20,14 @@ package io.github.kshulzh.kefir.builder.declaration
 
 import io.github.kshulzh.kefir.builder.KefirDslMarker
 import io.github.kshulzh.kefir.builder.type.Type
+import io.github.kshulzh.kefir.builder.type.match
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
-import io.github.kshulzh.kefir.model.api.declatation.findDeclaration
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.findDeclaration
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
+import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 import io.github.kshulzh.kefir.model.arg.KtParameterElementImpl
 import io.github.kshulzh.kefir.model.declatation.KtFunctionElementImpl
 import io.github.kshulzh.kefir.model.expression.KtBlockElementImpl
@@ -57,14 +59,27 @@ inline fun KtDeclarationsScope.Fun(
             )
         }
     }
-    return findDeclaration<KtFunctionElement>(name).firstOrNull()?.also(init) ?: KtFunctionElementImpl(
-        name,
-        declarationsScope = this,
-        parameters = parameters
-    ).apply {
-        init()
-        declarations.add(this)
-    }
+    return findDeclaration<KtFunctionElement>(name).firstOrNull()?.also(init) ?: NewFun(name, parameters, init)
+}
+
+inline fun KtDeclarationsScope.MatchFun(
+    name: String,
+    args: MutableList<Any?> = mutableListOf(),
+    init: @KefirDslMarker KtFunctionElement.() -> Unit = {}
+): KtFunctionElement? {
+//    if (this is KtClassElement) {
+//        if (args.isEmpty()) {
+//            args.add(0,this.Type())
+//        } else {
+//            val arg0 = args[0]
+//            if (arg0 is KtTypeElement && arg0 != this.Type()) {
+//                args.add(0,this.Type())
+//            } else if (arg0 is Pair<*, *> && arg0.second is KtTypeElement && arg0.first != this.Type()) {
+//                args.add(0,this.Type())
+//            }
+//        }
+//    }
+    return findDeclaration<KtFunctionElement>(name).match(args)?.also(init)
 }
 
 /**
@@ -76,9 +91,9 @@ inline fun KtDeclarationsScope.Fun(
  */
 inline fun KtDeclarationsScope.NewFun(
     name: String,
+    parameters: MutableList<KtParameterElement> = mutableListOf(),
     init: @KefirDslMarker KtFunctionElement.() -> Unit = {}
 ): KtFunctionElement {
-    val parameters = mutableListOf<KtParameterElement>()
     if (this is KtClassElement) {
         parameters.add(
             0,

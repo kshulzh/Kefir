@@ -20,6 +20,7 @@ package io.github.kshulzh.kefir.model.utils
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.utils.list.LazyDelayTransformObserverCrossListDelegate
 import io.github.kshulzh.kefir.model.utils.list.LazyDelayTransformObserverCrossSetDelegate
+import io.github.kshulzh.kefir.model.utils.list.LazyDelayTransformObserverListDelegate
 import io.github.kshulzh.kefir.transform.context.KtIrLocalTransformContext
 import io.github.kshulzh.kefir.transform.context.KtIrLocalTransformContext1
 import io.github.kshulzh.kefir.transform.context.KtIrLocalTransformContext2
@@ -94,7 +95,16 @@ fun <O : KtElement, P : KtElement, I> createLazyIrList2(
             TODO()
         }
     } else {
-        TODO()
+        if (problemContext!= null) {
+            LazyDelayTransformObserverListDelegate<O, P, KtIrLocalTransformContext, I>(
+                KtIrLocalTransformContext1(transformContext),
+                initializer1,
+                problemContext,
+                copy,  onDelete, onAdd
+            )
+        } else {
+            TODO()
+        }
     }
 }
 

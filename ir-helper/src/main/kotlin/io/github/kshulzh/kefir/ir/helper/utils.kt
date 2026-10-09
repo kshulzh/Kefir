@@ -17,11 +17,10 @@
 package io.github.kshulzh.kefir.ir.helper
 
 
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
-import io.github.kshulzh.kefir.model.api.statement.KtStatementsScope
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrDeclaration
@@ -54,23 +53,6 @@ fun KtDeclarationsScope.irDeclaration(initializer: (IrModuleFragment, IrPluginCo
  */
 fun irExpression(initializer: (IrModuleFragment, IrPluginContext) -> IrExpression): KtExpressionElement? {
     return KtIrInitExpressionElement(initializer)
-}
-
-/**
- * Creates and returns a `KtStatementElement` that encapsulates an IR-backed initializer
- * for integration with a Kotlin statements scope.
- *
- * This method facilitates the creation of a `KtIrInitStatementElement` which serves as
- * an intermediate representation (IR) statement element associated with a given initializer.
- *
- * @param initializer A lambda function that initializes the IR representation of the statement.
- *                    It takes an `IrModuleFragment` and an `IrPluginContext` as parameters
- *                    and returns an `IrStatement` to serve as the representation.
- * @return A `KtStatementElement` initialized with the given IR context and statement initializer,
- *         or `null` if the construction fails or is deemed invalid within the current context.
- */
-fun KtStatementsScope.irStatement(initializer: (IrModuleFragment, IrPluginContext) -> IrStatement): KtStatementElement? {
-    return KtIrInitStatementElement(initializer, this)
 }
 
 

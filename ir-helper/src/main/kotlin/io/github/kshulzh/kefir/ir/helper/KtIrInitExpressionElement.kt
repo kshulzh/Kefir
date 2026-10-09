@@ -18,6 +18,7 @@ package io.github.kshulzh.kefir.ir.helper
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
@@ -47,6 +48,7 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 class KtIrInitExpressionElement(
     override val initializer: (IrModuleFragment, IrPluginContext) -> IrExpression,
     override var parent: KtElement? = null,
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
 ) : KtExpressionElement, IrInitElement<IrExpression>, KtAttributes {
     /**

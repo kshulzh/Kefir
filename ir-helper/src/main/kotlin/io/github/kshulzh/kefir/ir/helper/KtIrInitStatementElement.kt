@@ -17,8 +17,9 @@
 package io.github.kshulzh.kefir.ir.helper
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
+import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
-import io.github.kshulzh.kefir.model.api.statement.KtStatementsScope
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
@@ -37,15 +38,13 @@ import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
  *                       It accepts an `IrModuleFragment` and `IrPluginContext` as parameters and returns
  *                       an `IrStatement`. This serves as the entry point for any statement initialization.
  *
- * @property statementsScope A reference to the surrounding `KtStatementsScope`, which defines the scope
- *                            of statements where this element resides. It can be used to manage or group
- *                            related statements within the Kotlin tree.
  *
  * @property attributes A mutable map storing arbitrary attributes for this element. This allows attaching
  *                      additional metadata or runtime configuration to the element.
  */
 class KtIrInitStatementElement(
     override val initializer: (IrModuleFragment, IrPluginContext) -> IrStatement,
-    override var statementsScope: KtStatementsScope? = null,
+    override var parent: KtElement? = null,
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
 ) : KtStatementElement, IrInitElement<IrStatement>, KtAttributes

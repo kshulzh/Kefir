@@ -17,6 +17,7 @@
 package io.github.kshulzh.kefir.model.ir.expression
 
 import io.github.kshulzh.kefir.model.api.KtElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.expression.KtIfElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
@@ -55,4 +56,6 @@ class KtIrIfElement(
     override var elseBody: KtExpressionElement?
         get() = TODO("Not yet implemented")
         set(value) {}
+
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf()
 }

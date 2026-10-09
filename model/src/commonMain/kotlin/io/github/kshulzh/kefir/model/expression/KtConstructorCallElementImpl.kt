@@ -18,7 +18,8 @@ package io.github.kshulzh.kefir.model.expression
 
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtElement
-import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
 import io.github.kshulzh.kefir.model.api.expression.KtConstructorCallElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
@@ -47,6 +48,7 @@ import io.github.kshulzh.kefir.model.utils.createListNullableDelegate
 class KtConstructorCallElementImpl(
     override val constructor: KtConstructorElement,
     arguments: MutableList<KtExpressionElement?> = mutableListOf(),
+    override val annotations: MutableList<KtAnnotationElement> = mutableListOf(),
     override var parent: KtElement? = null,
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
 ) : KtConstructorCallElement, KtAttributes {
@@ -74,8 +76,11 @@ class KtConstructorCallElementImpl(
      * to track changes to the argument list and to ensure proper updates to the parent-child
      * relationship within the AST structure.
      */
-    override val arguments: MutableList<KtExpressionElement?> by createListNullableDelegate(
+    override var arguments: MutableList<KtExpressionElement?> by createListNullableDelegate(
         arguments,
         KtExpressionElement::parent
     )
+    override var argumentMap: MutableMap<String, KtExpressionElement?>
+        get() = TODO("Not yet implemented")
+        set(value) {}
 }

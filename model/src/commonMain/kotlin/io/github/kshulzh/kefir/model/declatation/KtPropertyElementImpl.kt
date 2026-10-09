@@ -19,10 +19,10 @@ package io.github.kshulzh.kefir.model.declatation
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
-import io.github.kshulzh.kefir.model.api.declatation.KtFieldElement
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
-import io.github.kshulzh.kefir.model.api.declatation.KtPropertyElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifier
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 

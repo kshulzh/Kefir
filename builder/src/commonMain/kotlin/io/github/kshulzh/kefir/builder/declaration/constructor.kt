@@ -21,9 +21,9 @@ package io.github.kshulzh.kefir.builder.declaration
 import io.github.kshulzh.kefir.builder.KefirDslMarker
 import io.github.kshulzh.kefir.builder.type.Type
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
-import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.declatation.KtConstructorElementImpl
 import io.github.kshulzh.kefir.model.expression.KtBlockElementImpl

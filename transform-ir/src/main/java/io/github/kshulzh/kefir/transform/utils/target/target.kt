@@ -17,7 +17,7 @@
 package io.github.kshulzh.kefir.transform.utils.target
 
 import io.github.kshulzh.kefir.model.api.KtElement
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.statement.KtReturnStatementElement
 
@@ -54,7 +54,7 @@ fun KtReturnStatementElement.resolveTarget(): KtElement? {
     return if (target != null) {
         target
     } else {
-        statementsScope?.resolveTarget()
+        parent?.resolveTarget()
     }
 }
 
@@ -80,6 +80,6 @@ fun KtBlockElement.resolveTarget(): KtElement? {
  *
  * @return The resolved `KtElement` corresponding to this function element, or `null` if the resolution fails.
  */
-fun KtFunctionElement.resolveTarget(): KtElement? {
+fun KtFunctionElement.resolveTarget(): KtElement {
     return this
 }

@@ -21,8 +21,8 @@ package io.github.kshulzh.kefir.builder.arg
 import io.github.kshulzh.kefir.builder.type.Type
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
 import io.github.kshulzh.kefir.model.api.arg.KtParametersScope
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
 import io.github.kshulzh.kefir.model.arg.KtParameterElementImpl

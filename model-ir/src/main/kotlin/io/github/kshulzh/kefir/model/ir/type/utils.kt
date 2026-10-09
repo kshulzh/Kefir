@@ -17,11 +17,19 @@
 package io.github.kshulzh.kefir.model.ir.type
 
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
-import org.jetbrains.kotlin.ir.types.IrType
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterElement
+import io.github.kshulzh.kefir.transform.context.KtTransformContext
+import org.jetbrains.kotlin.ir.declarations.IrTypeParameter
+import org.jetbrains.kotlin.ir.irAttribute
+import org.jetbrains.kotlin.ir.symbols.IrTypeParameterSymbol
+import org.jetbrains.kotlin.ir.types.IrSimpleType
 
-fun wrapType(type: Any): KtTypeElement? {
+fun wrapType(type: Any, transformContext: KtTransformContext): KtTypeElement? {
     return when (type) {
-        is IrType -> KtIrClassTypeElement(type)
+        is IrSimpleType if (type.classifier is IrTypeParameterSymbol) -> KtIrParameterTypeElement(type)
+        is IrSimpleType -> KtIrClassTypeElement(type, transformContext)
         else -> null
     }
 }
+
+var IrTypeParameter.kefir: KtTypeParameterElement? by irAttribute(copyByDefault = true)

@@ -16,7 +16,7 @@
 
 package io.github.kshulzh.kefir.transform.model
 
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
 import io.github.kshulzh.kefir.transform.context.KtTransformContext
 import io.github.kshulzh.kefir.transform.context.local
 import org.jetbrains.kotlin.fir.backend.FirMetadataSource

@@ -19,11 +19,14 @@ package io.github.kshulzh.kefir.model.external.declaration
 import io.github.kshulzh.kefir.model.api.KtAttributes
 import io.github.kshulzh.kefir.model.api.KtExternalElement
 import io.github.kshulzh.kefir.model.api.KtName
-import io.github.kshulzh.kefir.model.api.declatation.KtConstructorElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifier
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterElement
 import io.github.kshulzh.kefir.model.external.KtExternalRootPackageElement
+import io.github.kshulzh.kefir.model.external.annotation.KtExternalAnnotationElement
 import io.github.kshulzh.kefir.transform.FirWrapper
 import io.github.kshulzh.kefir.transform.IrWrapper
 import org.jetbrains.kotlin.fir.declarations.FirConstructor
@@ -41,7 +44,7 @@ class KtExternalConstructorElement(
         get() = TODO("Not yet implemented")
         set(value) {}
     override var name: KtName
-        get() = TODO("Not yet implemented")
+        get() = "<constructor>"
         set(value) {}
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
@@ -52,4 +55,11 @@ class KtExternalConstructorElement(
     }
 
     override fun toString() = "<CONSTRUCTOR> $name"
+    override var typeParameters: MutableList<KtTypeParameterElement>
+        get() = TODO("Not yet implemented")
+        set(value) {}
+
+    override val annotations: MutableList<KtAnnotationElement> by lazy {
+        firElement.annotations.map { KtExternalAnnotationElement(it, this) }.toMutableList()
+    }
 }

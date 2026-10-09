@@ -18,7 +18,11 @@ package io.github.kshulzh.kefir.transform.transformer
 
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.*
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
 import io.github.kshulzh.kefir.model.api.expression.KtConstElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
@@ -68,7 +72,7 @@ open class AdvancedFirTransformer : FirTransformer() {
     override operator fun invoke(element: KtClassElement): FirClass? = wrap(element) { super.invoke(it) }
 
     /**
-     * Transforms a given [KtFunctionElement] into a corresponding [FirFunction] representation
+     * Transforms a given [io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement] into a corresponding [FirFunction] representation
      * using the current transformation context.
      *
      * @param element the Kotlin function element to be transformed
@@ -79,7 +83,7 @@ open class AdvancedFirTransformer : FirTransformer() {
     override operator fun invoke(element: KtFunctionElement): FirFunction? = wrap(element) { super.invoke(it) }
 
     /**
-     * Transforms a given [KtPropertyElement] into a [FirProperty] representation within the specified context.
+     * Transforms a given [io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement] into a [FirProperty] representation within the specified context.
      *
      * @param element The property element to be transformed.
      * @return The transformed [FirProperty] if the transformation is successful, or `null` if the transformation
@@ -100,14 +104,14 @@ open class AdvancedFirTransformer : FirTransformer() {
     override operator fun invoke(element: KtFieldElement): FirField? = wrap(element) { super.invoke(it) }
 
     /**
-     * Invokes the transformation process for a given [KtConstructorElement] within the provided
+     * Invokes the transformation process for a given [io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement] within the provided
      * [KtFirLocalTransformContext]. This function wraps the element using the specified `wrap` method
      * and delegates the actual transformation logic to the superclass implementation.
      *
-     * @param element The [KtConstructorElement] to be transformed. Represents a Kotlin constructor
+     * @param element The [io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement] to be transformed. Represents a Kotlin constructor
      * element within the model structure, which includes its constructor body and other properties.
      * @return A [FirConstructor] instance representing the transformed version of the provided
-     * [KtConstructorElement], or null if the transformation is not applicable.
+     * [io.github.kshulzh.kefir.model.api.declaration.KtConstructorElement], or null if the transformation is not applicable.
      */
     context(c: KtFirLocalTransformContext)
     override operator fun invoke(element: KtConstructorElement): FirConstructor? = wrap(element) { super.invoke(it) }

@@ -16,6 +16,7 @@
 
 package io.github.kshulzh.kefir.transform.context
 
+import io.github.kshulzh.kefir.model.api.io.KtPackageScope
 import io.github.kshulzh.kefir.transform.transformer.FirTransformer
 import io.github.kshulzh.kefir.transform.utils.KtFirStructure
 import io.github.kshulzh.problemgraph.context.ProblemContext
@@ -44,4 +45,7 @@ class KtFirTransformContextImpl(
     override val problemContext: ProblemContext?,
     override var attributes: MutableMap<String, Any> = mutableMapOf(),
     override val firTransform: FirTransformer = FirTransformer(),
-) : KtFirTransformContext
+) : KtFirTransformContext {
+    override lateinit var root: KtPackageScope
+    override lateinit var externalRoot: KtPackageScope
+}

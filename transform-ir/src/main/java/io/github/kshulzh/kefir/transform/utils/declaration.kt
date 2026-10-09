@@ -17,8 +17,8 @@
 package io.github.kshulzh.kefir.transform.utils
 
 import io.github.kshulzh.kefir.model.api.KtPath
-import io.github.kshulzh.kefir.model.api.declatation.KtClassElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationElement
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationElement
 import io.github.kshulzh.kefir.model.api.io.path
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId

@@ -19,11 +19,12 @@ package io.github.kshulzh.kefir.model.fir.declaration
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.annotation.KtAnnotationElement
 import io.github.kshulzh.kefir.model.api.arg.KtParameterElement
-import io.github.kshulzh.kefir.model.api.declatation.KtDeclarationsScope
-import io.github.kshulzh.kefir.model.api.declatation.KtFunctionElement
+import io.github.kshulzh.kefir.model.api.declaration.KtDeclarationsScope
+import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.modifiers.KtModifier
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
+import io.github.kshulzh.kefir.model.api.type.KtTypeParameterElement
 import io.github.kshulzh.kefir.transform.FirWrapper
 import io.github.kshulzh.kefir.transform.context.KtFirTransformContext
 import org.jetbrains.kotlin.fir.declarations.FirFunction
@@ -52,6 +53,9 @@ class KtFirFunctionElement(
         get() = TODO("Not yet implemented")
         set(value) {}
     override var annotations: MutableList<KtAnnotationElement>
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    override var typeParameters: MutableList<KtTypeParameterElement>
         get() = TODO("Not yet implemented")
         set(value) {}
 }
