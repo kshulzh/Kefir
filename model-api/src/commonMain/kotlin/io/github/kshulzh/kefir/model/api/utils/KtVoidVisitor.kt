@@ -39,6 +39,8 @@ import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetFieldElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetValueElement
 import io.github.kshulzh.kefir.model.api.expression.KtIfElement
+import io.github.kshulzh.kefir.model.api.expression.KtWhileElement
+import io.github.kshulzh.kefir.model.api.expression.KtDoWhileElement
 import io.github.kshulzh.kefir.model.api.expression.KtSetFieldElement
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageElement
@@ -408,6 +410,8 @@ interface KtVoidVisitor<D>: KtVisitor<Unit, D> {
      *             can be used to maintain context or gather results during the visit.
      */
     override fun visitIf(element: KtIfElement, data: D) {}
+    override fun visitWhile(element: KtWhileElement, data: D) {}
+    override fun visitDoWhile(element: KtDoWhileElement, data: D) {}
     /**
      * Visits a field-setting expression within the Kotlin abstract syntax tree (AST).
      *

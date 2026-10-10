@@ -49,22 +49,22 @@ class KefirFirExtension(
         pipelineArtifact: MetadataFrontendPipelineArtifact,
         pipelineContext: PipelineContext
     ) {
-        val firSession = pipelineArtifact.result.outputs[0].session
-        val ktFirTransformContext = KtFirTransformContextImpl(
-            firSession,
-            KtFirStructureFir(pipelineArtifact.result.outputs[0].fir as ArrayList<FirFile>, firSession),
-            createProblemContext()
-        )
-
-        val root =
-            KtFirRootPackageElement(ktFirTransformContext, pipelineArtifact.result.outputs[0].fir as ArrayList<FirFile>)
-        val ktContext = KtContext()
-        with(processor) {
-            root.process(ktContext)
-        }
-        val res = ktFirTransformContext.problemContext?.actionManager?.resolve()
-        res?.queue?.forEach {
-            it.throwable?.printStackTrace()
-        }
+//        val firSession = pipelineArtifact.frontendOutput.outputs[0].session
+//        val ktFirTransformContext = KtFirTransformContextImpl(
+//            firSession,
+//            KtFirStructureFir(pipelineArtifact.result.outputs[0].fir as ArrayList<FirFile>, firSession),
+//            createProblemContext()
+//        )
+//
+//        val root =
+//            KtFirRootPackageElement(ktFirTransformContext, pipelineArtifact.result.outputs[0].fir as ArrayList<FirFile>)
+//        val ktContext = KtContext()
+//        with(processor) {
+//            root.process(ktContext)
+//        }
+//        val res = ktFirTransformContext.problemContext?.actionManager?.resolve()
+//        res?.queue?.forEach {
+//            it.throwable?.printStackTrace()
+//        }
     }
 }

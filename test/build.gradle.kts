@@ -18,7 +18,7 @@ dependencies {
     implementation(project(":model-ir"))
     implementation(project(":compiler-plugin"))
 
-    implementation("dev.zacsweers.kctfork:core:0.12.1")
+    implementation("dev.zacsweers.kctfork:core:0.14.0")
     testImplementation(project(":model-utils"))
     implementation(kotlin("test"))
 }
@@ -28,7 +28,6 @@ kotlin {
         javaParameters = true
         freeCompilerArgs.add("-Xdebug")
         freeCompilerArgs.add("-opt-in=org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi")
-        freeCompilerArgs.add("-Xcontext-parameters")
     }
 }
 

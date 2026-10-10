@@ -90,7 +90,7 @@ class KtFirStructureImpl(
         val packageId = classId.packageFqName
         classes[classId] = firClass
         if (classId.isNestedClass) {
-            val parent = session.symbolProvider.getClassLikeSymbolByClassId(classId.parentClassId!!)?.fir
+            val parent = session.symbolProvider.getClassLikeSymbolByClassId(classId.outerClassId!!)?.fir
             parent?.let { fir ->
                 nestedClasses[fir] as? FirNestedClassifierScope
             }
@@ -316,7 +316,7 @@ class KtFirStructureImpl(
          * @param packageFqName the fully qualified name of the package for which top-level classifier names are to be retrieved
          * @return a set of top-level classifier names in the given package, or an empty set if no classifiers are found
          */
-        override fun getTopLevelClassifierNamesInPackage(packageFqName: FqName): Set<Name>? {
+        override fun getTopLevelClassifierNamesInPackage(packageFqName: FqName): Set<Name> {
             return classes[packageFqName] ?: setOf()
         }
 
@@ -326,7 +326,7 @@ class KtFirStructureImpl(
          * @param packageFqName The fully qualified name of the package to query for top-level callables.
          * @return A set of callable names in the specified package, or an empty set if no callables are found.
          */
-        override fun getTopLevelCallableNamesInPackage(packageFqName: FqName): Set<Name>? {
+        override fun getTopLevelCallableNamesInPackage(packageFqName: FqName): Set<Name> {
             return callables[packageFqName] ?: setOf()
         }
 
@@ -335,7 +335,7 @@ class KtFirStructureImpl(
          *
          * @return A set of package names as strings, or null if no package names are present.
          */
-        override fun getPackageNames(): Set<String>? {
+        override fun getPackageNames(): Set<String> {
             return classes.keys.map { it.asString() }.toSet() + callables.keys.map { it.asString() }.toSet()
         }
 
@@ -344,7 +344,7 @@ class KtFirStructureImpl(
          *
          * @return a set of package names as strings, or null if no top-level callables are available.
          */
-        override fun getPackageNamesWithTopLevelCallables(): Set<String>? {
+        override fun getPackageNamesWithTopLevelCallables(): Set<String> {
             return callables.keys.map { it.asString() }.toSet()
         }
 
@@ -354,7 +354,7 @@ class KtFirStructureImpl(
          * @return a set of package names as strings where top-level classifiers are present,
          *         or null if no such packages exist.
          */
-        override fun getPackageNamesWithTopLevelClassifiers(): Set<String>? {
+        override fun getPackageNamesWithTopLevelClassifiers(): Set<String> {
             return classes.keys.map { it.asString() }.toSet()
         }
     }

@@ -39,6 +39,8 @@ import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetFieldElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetValueElement
 import io.github.kshulzh.kefir.model.api.expression.KtIfElement
+import io.github.kshulzh.kefir.model.api.expression.KtWhileElement
+import io.github.kshulzh.kefir.model.api.expression.KtDoWhileElement
 import io.github.kshulzh.kefir.model.api.expression.KtSetFieldElement
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageElement
@@ -310,6 +312,10 @@ interface KtVisitor<out R, in D> {
      *
      * @*/
     fun visitIf(element: KtIfElement, data: D): R = visitExpression(element, data)
+    /** Visits a `while` loop. */
+    fun visitWhile(element: KtWhileElement, data: D): R = visitExpression(element, data)
+    /** Visits a `do ... while` loop. */
+    fun visitDoWhile(element: KtDoWhileElement, data: D): R = visitExpression(element, data)
     /**
      * Visits a `KtSetFieldElement`, which represents a field-setting expression in the Kotlin abstract syntax tree (AST).
      * This method delegates to [visitExpression] to handle the common behavior for expression elements.

@@ -39,6 +39,8 @@ import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetFieldElement
 import io.github.kshulzh.kefir.model.api.expression.KtGetValueElement
 import io.github.kshulzh.kefir.model.api.expression.KtIfElement
+import io.github.kshulzh.kefir.model.api.expression.KtWhileElement
+import io.github.kshulzh.kefir.model.api.expression.KtDoWhileElement
 import io.github.kshulzh.kefir.model.api.expression.KtSetFieldElement
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
 import io.github.kshulzh.kefir.model.api.io.KtPackageElement
@@ -168,6 +170,16 @@ interface KtChildVisitor<D>: KtVoidVisitor<D> {
         element.type.visitNullable(this, data)
         element.ifBody.visitNullable(this,data)
         element.elseBody.visitNullable(this,data)
+    }
+    override fun visitWhile(element: KtWhileElement, data: D) {
+        element.condition.visitNullable(this,data)
+        element.type.visitNullable(this, data)
+        element.body.visitNullable(this,data)
+    }
+    override fun visitDoWhile(element: KtDoWhileElement, data: D) {
+        element.type.visitNullable(this, data)
+        element.body.visitNullable(this,data)
+        element.condition.visitNullable(this,data)
     }
     override fun visitSetField(element: KtSetFieldElement, data: D) {
         element.receiver.visitNullable(this,data)

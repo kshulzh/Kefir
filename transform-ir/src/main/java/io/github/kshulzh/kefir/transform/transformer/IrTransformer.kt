@@ -208,6 +208,18 @@ open class IrTransformer {
     open operator fun invoke(element: KtBlockElement): IrBlock? = c.transformIrBlock(element)
 
     /**
+     * Transforms a [KtWhileElement] into an [IrWhileLoop].
+     */
+    context(c: KtIrLocalTransformContext)
+    open operator fun invoke(element: KtWhileElement): IrWhileLoop? = c.transformIrWhile(element)
+
+    /**
+     * Transforms a [KtDoWhileElement] into an [IrDoWhileLoop].
+     */
+    context(c: KtIrLocalTransformContext)
+    open operator fun invoke(element: KtDoWhileElement): IrDoWhileLoop? = c.transformIrDoWhile(element)
+
+    /**
      * Transforms the provided constant Kotlin AST element (`KtConstElement`) into its corresponding
      * IR (Intermediate Representation) constant (`IrConst`).
      *

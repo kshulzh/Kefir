@@ -32,6 +32,8 @@ fun wrapIrExpression(
         is IrGetField -> KtIrGetFieldElement(irExpression, transformContext, parent)
         is IrGetValue -> KtIrGetValueElement(irExpression, transformContext, parent)
         is IrSetField -> KtIrSetFieldElement(irExpression, transformContext, parent)
+        is IrWhileLoop -> KtIrWhileElement(irExpression, transformContext, parent)
+        is IrDoWhileLoop -> KtIrDoWhileElement(irExpression, transformContext, parent)
         //todo check else
         is IrWhen if (irExpression.branches.size == 1 || irExpression.branches.size == 2) -> wrapIrExpression(
             irExpression.branches.first().result,

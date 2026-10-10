@@ -18,8 +18,12 @@ package io.github.kshulzh.kefir.model.fir.expression
 
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
+import io.github.kshulzh.kefir.model.api.expression.KtLoopElement
 import io.github.kshulzh.kefir.transform.context.KtFirTransformContext
 import org.jetbrains.kotlin.fir.expressions.FirExpression
+import org.jetbrains.kotlin.fir.expressions.FirDoWhileLoop
+import org.jetbrains.kotlin.fir.expressions.FirLoop
+import org.jetbrains.kotlin.fir.expressions.FirWhileLoop
 
 fun wrapExpression(
     expression: FirExpression,
@@ -28,6 +32,19 @@ fun wrapExpression(
 ): KtExpressionElement? {
     return when (expression) {
 
+        else -> null
+    }
+}
+
+/** FIR loops are statements, not [FirExpression]s, so they are wrapped separately. */
+fun wrapLoop(
+    loop: FirLoop,
+    transformContext: KtFirTransformContext,
+    parent: KtElement? = null
+): KtLoopElement? {
+    return when (loop) {
+        is FirWhileLoop -> KtFirWhileElement(loop, transformContext, parent)
+        is FirDoWhileLoop -> KtFirDoWhileElement(loop, transformContext, parent)
         else -> null
     }
 }

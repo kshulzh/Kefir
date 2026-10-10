@@ -18,6 +18,8 @@ package io.github.kshulzh.kefir.transform.statement
 
 import io.github.kshulzh.kefir.ir.helper.KtIrInitStatementElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
+import io.github.kshulzh.kefir.model.api.expression.KtDoWhileElement
+import io.github.kshulzh.kefir.model.api.expression.KtWhileElement
 import io.github.kshulzh.kefir.model.api.statement.KtReturnStatementElement
 import io.github.kshulzh.kefir.model.api.statement.KtStatementElement
 import io.github.kshulzh.kefir.transform.context.KtFirLocalTransformContext
@@ -33,7 +35,6 @@ import org.jetbrains.kotlin.ir.IrStatement
  *
  * @param input The Kotlin statement element to be transformed. This can be one of the following types:
  *              - [KtReturnStatementElement]: Represents a `return` statement in the Kotlin AST.
- *              - [KtExpressionStatement]: Represents a Kotlin expression as a standalone statement.
  *              - [KtIrInitStatementElement]: Represents an IR-backed statement in the Kotlin AST used
  *                for initialization.
  *
@@ -52,6 +53,8 @@ fun KtIrLocalTransformContext.transformIrStatement(input: KtStatementElement): I
 fun KtFirLocalTransformContext.transformFirStatement(input: KtStatementElement): FirStatement? {
     return when (input) {
         is KtReturnStatementElement -> firTransform(input)
+        is KtWhileElement -> firTransform(input)
+        is KtDoWhileElement -> firTransform(input)
         else -> null
     }
 }

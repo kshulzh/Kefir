@@ -15,12 +15,6 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
-    }
-}
-
 tasks.jar {
     archiveBaseName.set("kefir-transform-ir")
 }

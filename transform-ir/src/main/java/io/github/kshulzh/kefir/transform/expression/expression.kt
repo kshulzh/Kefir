@@ -35,6 +35,8 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 fun KtIrLocalTransformContext.transformIrExpression(input: KtExpressionElement): IrExpression? {
     return when (input) {
         is KtBlockElement -> irTransform(input)
+        is KtWhileElement -> irTransform(input)
+        is KtDoWhileElement -> irTransform(input)
         is KtConstElement<*> -> irTransform(input)
         is KtGetFieldElement -> irTransform(input)
         is KtGetValueElement -> irTransform(input)

@@ -15,9 +15,6 @@ dependencies {
 }
 
 kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
-    }
 }
 
 tasks.jar {

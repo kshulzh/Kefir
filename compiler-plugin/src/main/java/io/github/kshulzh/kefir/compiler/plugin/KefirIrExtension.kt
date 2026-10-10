@@ -74,7 +74,9 @@ class KefirIrExtension(
                 ktTransformContext.firSession,
                 firCachingCompositeSymbolProvider.providers.filter { it::class.qualifiedName?.equals("org.jetbrains.kotlin.fir.resolve.providers.impl.FirProviderImpl.SymbolProvider") == false },
             )
-            (firCachingCompositeSymbolProvider.providers as ArrayList<FirSymbolProvider>).add(ktTransformContext.firStructure)
+            val providers = firCachingCompositeSymbolProvider.providers as MutableList<FirSymbolProvider>
+            providers::class.java.getDeclaredField("isReadOnly").apply { isAccessible = true }.set(providers, false)
+            providers.add(ktTransformContext.firStructure)
             ((firCachingCompositeSymbolProvider.symbolNamesProvider as FirCompositeCachedSymbolNamesProvider).providers as ArrayList<FirSymbolNamesProvider>).add(
                 ktTransformContext.firStructure.symbolNameProvider
             )

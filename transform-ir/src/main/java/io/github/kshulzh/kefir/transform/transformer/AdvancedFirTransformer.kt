@@ -24,6 +24,8 @@ import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
 import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
 import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
+import io.github.kshulzh.kefir.model.api.expression.KtDoWhileElement
+import io.github.kshulzh.kefir.model.api.expression.KtWhileElement
 import io.github.kshulzh.kefir.model.api.expression.KtConstElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
@@ -39,6 +41,8 @@ import org.jetbrains.kotlin.backend.common.pop
 import org.jetbrains.kotlin.backend.common.push
 import org.jetbrains.kotlin.fir.declarations.*
 import org.jetbrains.kotlin.fir.expressions.FirBlock
+import org.jetbrains.kotlin.fir.expressions.FirDoWhileLoop
+import org.jetbrains.kotlin.fir.expressions.FirWhileLoop
 import org.jetbrains.kotlin.fir.expressions.FirExpression
 import org.jetbrains.kotlin.fir.expressions.FirLiteralExpression
 import org.jetbrains.kotlin.fir.expressions.FirReturnExpression
@@ -167,6 +171,14 @@ open class AdvancedFirTransformer : FirTransformer() {
      */
     context(c: KtFirLocalTransformContext)
     override operator fun invoke(element: KtBlockElement): FirBlock? = wrap(element) { super.invoke(it) }
+
+    /** Transforms a [KtWhileElement] into a [FirWhileLoop]. */
+    context(c: KtFirLocalTransformContext)
+    override operator fun invoke(element: KtWhileElement): FirWhileLoop? = wrap(element) { super.invoke(it) }
+
+    /** Transforms a [KtDoWhileElement] into a [FirDoWhileLoop]. */
+    context(c: KtFirLocalTransformContext)
+    override operator fun invoke(element: KtDoWhileElement): FirDoWhileLoop? = wrap(element) { super.invoke(it) }
 
     /**
      * Transforms a constant element into its corresponding FIR literal expression within

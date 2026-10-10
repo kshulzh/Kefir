@@ -10,10 +10,6 @@ kotlin {
     //jvm
     jvm()
 
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {

@@ -24,6 +24,8 @@ import io.github.kshulzh.kefir.model.api.declaration.KtFieldElement
 import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
 import io.github.kshulzh.kefir.model.api.declaration.KtPropertyElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
+import io.github.kshulzh.kefir.model.api.expression.KtDoWhileElement
+import io.github.kshulzh.kefir.model.api.expression.KtWhileElement
 import io.github.kshulzh.kefir.model.api.expression.KtConstElement
 import io.github.kshulzh.kefir.model.api.expression.KtExpressionElement
 import io.github.kshulzh.kefir.model.api.io.KtFileElement
@@ -37,6 +39,8 @@ import io.github.kshulzh.kefir.transform.context.KtFirLocalTransformContext
 import io.github.kshulzh.kefir.transform.declaration.*
 import io.github.kshulzh.kefir.transform.expression.transformFirBlock
 import io.github.kshulzh.kefir.transform.expression.transformFirConst
+import io.github.kshulzh.kefir.transform.expression.transformFirDoWhile
+import io.github.kshulzh.kefir.transform.expression.transformFirWhile
 import io.github.kshulzh.kefir.transform.expression.transformFirExpression
 import io.github.kshulzh.kefir.transform.statement.transformFirReturn
 import io.github.kshulzh.kefir.transform.statement.transformFirStatement
@@ -211,6 +215,18 @@ open class FirTransformer {
      */
     context(c: KtFirLocalTransformContext)
     open operator fun invoke(element: KtBlockElement): FirBlock? = c.transformFirBlock(element)
+
+    /**
+     * Transforms a [KtWhileElement] into a [FirWhileLoop].
+     */
+    context(c: KtFirLocalTransformContext)
+    open operator fun invoke(element: KtWhileElement): FirWhileLoop? = c.transformFirWhile(element)
+
+    /**
+     * Transforms a [KtDoWhileElement] into a [FirDoWhileLoop].
+     */
+    context(c: KtFirLocalTransformContext)
+    open operator fun invoke(element: KtDoWhileElement): FirDoWhileLoop? = c.transformFirDoWhile(element)
 
     /**
      * Transforms a constant element (`KtConstElement`) into its corresponding FIR literal expression (`FirLiteralExpression`).

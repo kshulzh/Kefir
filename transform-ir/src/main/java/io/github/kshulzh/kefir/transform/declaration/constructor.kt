@@ -123,6 +123,7 @@ fun KtFirLocalTransformContext.transformFirConstructor(input: KtConstructorEleme
         //override var contractDescription: FirContractDescription? = null
         //override val annotations: MutableList<FirAnnotation> = mutableListOf()
         symbol = FirConstructorSymbol(classId)
+        isLocal = false
         //override var delegatedConstructor: FirDelegatedConstructorCall? = null
         //override var body: FirBlock? = null
         deprecationsProvider = UnresolvedDeprecationProvider

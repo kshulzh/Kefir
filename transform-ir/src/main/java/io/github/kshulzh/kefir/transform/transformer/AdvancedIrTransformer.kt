@@ -230,6 +230,18 @@ class AdvancedIrTransformer : IrTransformer() {
         return wrap(element) { super.invoke(it) }
     }
 
+    /** Transforms a [KtWhileElement] into an [IrWhileLoop]. */
+    context(c: KtIrLocalTransformContext)
+    override fun invoke(element: KtWhileElement): IrWhileLoop? {
+        return wrap(element) { super.invoke(it) }
+    }
+
+    /** Transforms a [KtDoWhileElement] into an [IrDoWhileLoop]. */
+    context(c: KtIrLocalTransformContext)
+    override fun invoke(element: KtDoWhileElement): IrDoWhileLoop? {
+        return wrap(element) { super.invoke(it) }
+    }
+
     /**
      * Transforms a constant element into its corresponding Intermediate Representation (IR) constant, if applicable.
      *

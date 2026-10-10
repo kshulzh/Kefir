@@ -19,6 +19,7 @@ package io.github.kshulzh.kefir.transform.utils.target
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.declaration.KtFunctionElement
 import io.github.kshulzh.kefir.model.api.expression.KtBlockElement
+import io.github.kshulzh.kefir.model.api.expression.KtLoopElement
 import io.github.kshulzh.kefir.model.api.statement.KtReturnStatementElement
 
 /**
@@ -38,6 +39,7 @@ fun KtElement.resolveTarget(): KtElement? {
         is KtFunctionElement -> this
         is KtReturnStatementElement -> resolveTarget()
         is KtBlockElement -> resolveTarget()
+        is KtLoopElement -> parent?.resolveTarget()
         else -> null
     }
 }
