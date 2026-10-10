@@ -18,7 +18,6 @@ kotlin {
         javaParameters = true
         freeCompilerArgs.add("-Xdebug")
         freeCompilerArgs.add("-opt-in=org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi")
-        freeCompilerArgs.add("-Xcontext-parameters")
     }
 }
 

@@ -28,7 +28,7 @@ import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.fir.backend.FirMetadataSource
 import org.jetbrains.kotlin.fir.declarations.*
-import org.jetbrains.kotlin.fir.declarations.builder.buildSimpleFunction
+import org.jetbrains.kotlin.fir.declarations.builder.FirNamedFunctionBuilder
 import org.jetbrains.kotlin.fir.declarations.impl.FirDeclarationStatusImpl
 import org.jetbrains.kotlin.fir.declarations.utils.classId
 import org.jetbrains.kotlin.fir.moduleData
@@ -108,10 +108,10 @@ fun KtIrLocalTransformContext.transformIrFunction(input: KtFunctionElement): IrS
  * @return A `FirSimpleFunction` representation of the input function element, fully constructed and linked
  *         within the FIR transformation context.
  */
-fun KtFirLocalTransformContext.transformFirFunction(input: KtFunctionElement): FirSimpleFunction {
+fun KtFirLocalTransformContext.transformFirFunction(input: KtFunctionElement): FirNamedFunction {
     val returnType = firTransform(input.resolveType()!!)?.toFirResolvedTypeRef()
     val parent = input.declarationsScope.getFirOrExternal<FirDeclaration>()!!
-    return buildSimpleFunction {
+    return FirNamedFunctionBuilder().apply {
         source = createSource()
         resolvePhase = FirResolvePhase.BODY_RESOLVE
         moduleData = firSession.moduleData
@@ -138,11 +138,12 @@ fun KtFirLocalTransformContext.transformFirFunction(input: KtFunctionElement): F
         //valueParameters = mutableListOf()
         //body: FirBlock? = null
         //contractDescription = null
+        isLocal = false
         name = input.name.transform()
         symbol = FirNamedFunctionSymbol(input.callableId())
         //annotations= mutableListOf()
         //typeParameters = mutableListOf()
-    }.linkFir(input).apply {
+    }.build().linkFir(input).apply {
         firStructure.addCallable(this)
         //todo if context is fir enable it
 //        input.body?.let {

@@ -16,6 +16,7 @@
 
 package io.github.kshulzh.kefir.transform.type
 
+import io.github.kshulzh.kefir.model.api.io.resolveClass
 import io.github.kshulzh.kefir.model.api.type.KtBaseTypes
 import io.github.kshulzh.kefir.model.api.type.KtClassTypeElement
 import io.github.kshulzh.kefir.model.api.type.KtTypeElement
@@ -27,6 +28,7 @@ import org.jetbrains.kotlin.fir.types.impl.ConeClassLikeTypeImpl
 import org.jetbrains.kotlin.fir.types.toLookupTag
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.typeWith
+import org.jetbrains.kotlin.ir.util.file
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 
@@ -74,15 +76,11 @@ fun KtFirLocalTransformContext.transformFirType(input: KtTypeElement): ConeKotli
  *              Includes details about the package, class name, nullability, and type arguments.
  * @return The transformed `IrType` for the given class type element, or `null` if the transformation cannot be performed.
  */
-fun KtIrLocalTransformContext.transformClassIrType(input: KtClassTypeElement): IrType? {
+fun KtIrLocalTransformContext.transformClassIrType(input: KtClassTypeElement): IrType {
     val typeArguments = input.typeArguments.map { irTransform(it)!! }
-    return transformContext.pluginContext.referenceClass(
-        ClassId(
-            input.ktPackage.transform() ?: FqName.ROOT,
-            input.ktClass.transform()!!,
-            false
-        )
-    )?.typeWith(typeArguments)
+
+    val symbol = irTransform(input.resolveClass(root, externalRoot)!!)!!
+    return symbol.symbol.typeWith(typeArguments)
 }
 
 /**

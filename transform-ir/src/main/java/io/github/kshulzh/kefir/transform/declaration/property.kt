@@ -245,7 +245,6 @@ private fun KtFirLocalTransformContext.transformFirBackingField(
         origin = FirDeclarationOrigin.Source
         attributes = FirDeclarationAttributes()
         returnTypeRef = returnType ?: firSession.builtinTypes.unitType
-        deprecationsProvider = UnresolvedDeprecationProvider
         name = input.name.transform()
         isVar = true
         isVal = false
@@ -289,7 +288,6 @@ private fun KtFirLocalTransformContext.transformFirValueParameter(
         origin = FirDeclarationOrigin.Source
         attributes = FirDeclarationAttributes()
         returnTypeRef = returnType ?: firSession.builtinTypes.unitType
-        deprecationsProvider = UnresolvedDeprecationProvider
         name = input.name.transform()
         //override val annotations: MutableList<FirAnnotation> = mutableListOf()
         symbol = FirValueParameterSymbol()

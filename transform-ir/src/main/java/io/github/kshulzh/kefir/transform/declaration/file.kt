@@ -68,6 +68,7 @@ fun KtIrLocalTransformContext.transformIrFile(input: KtFileElement): IrFile? {
         symbol = fileSymbol,
         packageFqName = input.path.transform()
             ?: FqName.Companion.ROOT,
+        module = moduleFragment
     ).linkIr(input)
 
 
@@ -149,7 +150,7 @@ class KtKefirSourceFile(val file: KtFileElement) : KtSourceFile {
      *
      * This property may return null if the file path cannot be determined.
      */
-    override val path: String?
+    override val path: String
         get() = file.getFilePath()
 
     /**
@@ -158,6 +159,14 @@ class KtKefirSourceFile(val file: KtFileElement) : KtSourceFile {
      * @return an InputStream representing the contents of the source file
      */
     override fun getContentsAsStream(): InputStream {
+        TODO("Not yet implemented")
+    }
+
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun hashCode(): Int {
         TODO("Not yet implemented")
     }
 }

@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.3.10"
+kotlin = "2.4.20"
 agp = "8.13.0-rc01"
 vanniktech = "0.36.0"
 kshku = "0.0.1.1"

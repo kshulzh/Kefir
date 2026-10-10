@@ -74,7 +74,7 @@ class KtFirStructureFir(
         val packageId = classId.packageFqName
         classes[classId] = firClass
         if (classId.isNestedClass) {
-            session.symbolProvider.getClassLikeSymbolByClassId(classId.parentClassId!!)?.fir
+            session.symbolProvider.getClassLikeSymbolByClassId(classId.outerClassId!!)?.fir
         } else {
             symbolNameProvider.classes.getOrPut(packageId) { mutableSetOf() }.add(classId.shortClassName)
         }

@@ -20,10 +20,10 @@ package io.github.kshulzh.kefir.compiler.plugin
 import io.github.kshulzh.kefir.api.KtCompositeProcessor
 import io.github.kshulzh.kefir.api.KtProcessor
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
-import org.jetbrains.kotlin.cli.common.messages.getLogger
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.config.CompilerConfigurationKey
+import org.jetbrains.kotlin.config.reportLog
 import java.io.File
 import java.net.URLClassLoader
 import java.util.*
@@ -101,12 +101,12 @@ class KefirCompilerComponentRegistrar : CompilerPluginRegistrar() {
                 }
                 irProcessors.addAll(it.irExtensions)
             }
-        } ?: configuration.getLogger().warning("No files")
+        } ?: configuration.reportLog("No files")
 
         if (irProcessors.isNotEmpty()) {
             IrGenerationExtension.registerExtension(KefirIrExtension(KtCompositeProcessor(irProcessors)))
         } else {
-            configuration.getLogger().warning("No processors")
+            configuration.reportLog("No processors")
         }
     }
 }

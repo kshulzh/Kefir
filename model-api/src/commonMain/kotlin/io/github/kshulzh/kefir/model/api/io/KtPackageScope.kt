@@ -19,6 +19,9 @@ package io.github.kshulzh.kefir.model.api.io
 import io.github.kshulzh.kefir.model.api.KtElement
 import io.github.kshulzh.kefir.model.api.KtName
 import io.github.kshulzh.kefir.model.api.KtPath
+import io.github.kshulzh.kefir.model.api.declaration.KtClassElement
+import io.github.kshulzh.kefir.model.api.declaration.findDeclaration
+import io.github.kshulzh.kefir.model.api.type.KtClassTypeElement
 import io.github.kshulzh.kefir.model.api.utils.KtVisitor
 
 /**
@@ -104,5 +107,25 @@ fun KtPackageScope.getOrCreatePackage(path: KtPath): KtPackageScope {
         current = current.getOrCreatePackage(it)
     }
     return current
+}
+
+fun KtPackageScope.findClass(pkg: KtPath, cls: KtPath, create: Boolean): KtClassElement? {
+    var scope = this
+    for (part in pkg.parts.filter { it.isNotEmpty() }) {
+        scope = (if (create) scope.getOrCreatePackage(part) else scope.getPackage(part)) ?: return null
+    }
+    val top = cls.parts.firstOrNull() ?: return null
+    // Class `Top` usually lives in `Top.kt`, but any file of the package may declare it.
+    val files = listOfNotNull(scope.getFile("$top.kt")) + scope.packageElements.filterIsInstance<KtFileElement>()
+    var klass = files.firstNotNullOfOrNull { it.findDeclaration<KtClassElement>(top).firstOrNull() }
+    for (nested in cls.parts.drop(1)) {
+        klass = klass?.findDeclaration<KtClassElement>(nested)?.firstOrNull()
+    }
+    return klass
+}
+
+fun KtClassTypeElement.resolveClass(internal: KtPackageScope, external: KtPackageScope): KtClassElement? {
+    return internal.findClass(ktPackage, ktClass, create = false)
+        ?: external.findClass(ktPackage, ktClass, create = true)
 }
 
